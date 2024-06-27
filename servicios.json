@@ -1,0 +1,60 @@
+{
+    "servicios":[
+        {
+            "servicio":"limpieza",
+            "precio":"30000",
+            "equipos_asignados":[
+                {
+                    "serial":""
+                }
+            ]
+            
+        },
+        {
+            "servicio":"reestablecer equipo",
+            "precio":"20000",
+            "equipos_asignados":[
+                {
+                    "serial":""
+                }
+            ]
+        }
+    ],
+    "productos":{
+        "graficas":[
+            {
+                "nombre":"NVIDIA GeForce RTX 3060",
+                "precio":1300000
+            },
+            {
+                "nombre":"AMD Radeon RX 6700 XT",
+                "precio":1700000
+            },
+            {
+                "nombre":"NVIDIA GeForce RTX 3060 Ti",
+                "precio":1700000
+            },
+            {
+                "nombre":"AMD Radeon RX 6600 XT",
+                "precio":1100000
+            },
+            {
+                "nombre":"NVIDIA GeForce GTX 1660 Super",
+                "precio":900000
+            },
+            {
+                "nombre":"AMD Radeon RX 6800",
+                "precio":2100000
+            },
+            {
+                "nombre":"NVIDIA GeForce RTX 3070",
+                "precio":2200000
+            },
+            {
+                "nombre":"AMD Radeon RX 6650 XT",
+                "precio":1300000
+            }
+        ]
+    }
+    
+}
