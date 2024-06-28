@@ -54,6 +54,30 @@
                 "nombre":"AMD Radeon RX 6650 XT",
                 "precio":1300000
             }
+        ],
+        "procesadores":[
+            {
+                "nombre":"Intel Core i5-13600KF",
+                "nucleos/hilos":"14 (6 P-cores + 8 E-cores)",
+                "velocidad":"Hasta 5.1 GHz",
+                "precio":1066000
+            }
+        ],
+        "ram":[
+            {
+                "nombre": "Kingston HyperX Fury",
+                "GB":"4GB",
+                "precio": 200000,
+                "frecuencia":"1600 MHz",
+                "blindada": "si"
+            },
+            {
+                "nombre": "Corsair Vengeance LPX",
+                "GB": "16 GB (2X8 GB)",
+                "precio": 500000,
+                "frecuencia":"3600 MHz",
+                "blindada": "si"
+            }
         ]
     }
     
