@@ -78,3 +78,8 @@ def editar_tecnico(datos):
         return datos
     
     return datos
+
+def mostrar_tecnico(datos):
+    for usuario in datos["usuarios"]:
+        if usuario["rol"].lower() == "tecnico":
+            print(usuario)
