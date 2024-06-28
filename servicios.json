@@ -5,7 +5,10 @@
             "precio":"30000",
             "equipos_asignados":[
                 {
-                    "serial":""
+                    "cliente":"",
+                    "serial":"",
+                    "estado":""
+                    
                 }
             ]
             
@@ -15,9 +18,31 @@
             "precio":"20000",
             "equipos_asignados":[
                 {
-                    "serial":""
+                    "cliente":"",
+                    "serial":"",
+                    "estado":""
                 }
             ]
+        },
+        {
+            "servicio":"comprar e instalar productos",
+            "precio":"30000",
+            "equipos_asignados":[
+                {   
+                    "cliente":"",
+                    "serial":"",
+                    "estado":"",
+                    "nombre_producto":"",
+                    "valor":0,
+                    "productos":[
+                        {
+                            "nombre":"",
+                            "valor":0
+                        }
+                    ]
+                }
+            ]
+            
         }
     ],
     "productos":{
@@ -77,6 +102,16 @@
                 "precio": 500000,
                 "frecuencia":"3600 MHz",
                 "blindada": "si"
+            },
+            {
+                "nombre": "G.Skill Ripjaws V",
+                "GB": "16 GB (2X8 GB)",
+                "precio": 450000 ,
+                "frecuencia":"3000 MHz",
+                "blindada": "si"
+            },
+            {
+                
             }
         ]
     }
