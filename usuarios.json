@@ -4,6 +4,7 @@
             "nombre":"Santiago",
             "numero":"3001438671",
             "id":"1099736902",
+            "contrasena":"xd",
             "direccion": "cra 28 #16-61",
             "ciudad": "Bucaramanga",
             "rol":"Tecnico"
@@ -12,6 +13,7 @@
             "nombre":"Buñuelo",
             "numero":"3162249944",
             "id":"1097097808",
+            "contrasena":"xd",
             "direccion": "cra xd",
             "ciudad": "Bucaramanga",
             "rol":"Cliente",
