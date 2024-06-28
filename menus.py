@@ -1,3 +1,4 @@
+
 def pedir_opcion():
     opc = 0
     try:
