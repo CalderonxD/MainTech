@@ -3,36 +3,41 @@
         {
             "servicio":"limpieza",
             "precio":"30000",
-            "equipos_asignados":[
+            "solicitudes":[
                 {
-                    "cliente":"",
-                    "serial":"",
-                    "estado":""
+                    "id_socilitud": "",
+                    "cliente": "",
+                    "serial": "",
+                    "estado_avance": "",
+                    "estado_pago": false
                     
                 }
-            ]
+            ]   
             
         },
         {
             "servicio":"reestablecer equipo",
             "precio":"20000",
-            "equipos_asignados":[
+            "solicitudes":[
                 {
-                    "cliente":"",
-                    "serial":"",
-                    "estado":""
+                    "id_socilitud": "",
+                    "cliente": "",
+                    "serial": "",
+                    "estado_avance": "",
+                    "estado_pago": false
                 }
             ]
         },
         {
             "servicio":"comprar e instalar productos",
             "precio":"30000",
-            "equipos_asignados":[
+            "solicitudes":[
                 {   
-                    "cliente":"",
-                    "serial":"",
-                    "estado":"",
-                    "nombre_producto":"",
+                    "id_socilitud": "",
+                    "cliente": "",
+                    "serial": "",
+                    "estado_avance": "",
+                    "estado_pago": false,
                     "valor":0,
                     "productos":[
                         {

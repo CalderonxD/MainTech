@@ -7,7 +7,8 @@
             "contrasena":"xd",
             "direccion": "cra 28 #16-61",
             "ciudad": "Bucaramanga",
-            "rol":"Tecnico"
+            "rol":"Tecnico",
+            "servicio": ""
         },
         {
             "nombre":"Buñuelo",
