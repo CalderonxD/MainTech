@@ -1,124 +1,205 @@
 {
-    "servicios":[
+    "servicios": [
         {
-            "servicio":"limpieza",
-            "precio":"30000",
-            "solicitudes":[
+            "servicio": "limpieza",
+            "precio": "30000",
+            "solicitudes": [
                 {
                     "id_socilitud": "",
                     "cliente": "",
+                    "tecnico": "",
                     "serial": "",
                     "estado_avance": "",
                     "estado_pago": false
-                    
-                }
-            ]   
-            
-        },
-        {
-            "servicio":"reestablecer equipo",
-            "precio":"20000",
-            "solicitudes":[
+                },
                 {
-                    "id_socilitud": "",
-                    "cliente": "",
-                    "serial": "",
-                    "estado_avance": "",
+                    "id_solicitud": "2",
+                    "cliente": "Bu\u00c3\u00b1uelo",
+                    "tecnico": "",
+                    "serial": "1111",
+                    "estado_avance": "asignado",
+                    "estado_pago": false
+                },
+                {
+                    "id_solicitud": "3",
+                    "cliente": "Bu\u00c3\u00b1uelo",
+                    "tecnico": "",
+                    "serial": "1111",
+                    "estado_avance": "asignado",
                     "estado_pago": false
                 }
             ]
         },
         {
-            "servicio":"comprar e instalar productos",
-            "precio":"30000",
-            "solicitudes":[
-                {   
+            "servicio": "reestablecer equipo",
+            "precio": "20000",
+            "solicitudes": [
+                {
                     "id_socilitud": "",
                     "cliente": "",
+                    "tecnico": "",
+                    "serial": "",
+                    "estado_avance": "",
+                    "estado_pago": false
+                },
+                {
+                    "id_solicitud": "2",
+                    "cliente": "Bu\u00c3\u00b1uelo",
+                    "tecnico": "",
+                    "serial": "1111",
+                    "estado_avance": "asignado",
+                    "estado_pago": false
+                },
+                {
+                    "id_solicitud": "3",
+                    "cliente": "Bu\u00c3\u00b1uelo",
+                    "tecnico": "",
+                    "serial": "1111",
+                    "estado_avance": "asignado",
+                    "estado_pago": false
+                },
+                {
+                    "id_solicitud": "4",
+                    "cliente": "Bu\u00c3\u00b1uelo",
+                    "tecnico": "",
+                    "serial": "1111",
+                    "estado_avance": "asignado",
+                    "estado_pago": false
+                }
+            ]
+        },
+        {
+            "servicio": "comprar e instalar productos",
+            "precio": "30000",
+            "solicitudes": [
+                {
+                    "id_socilitud": "",
+                    "cliente": "",
+                    "tecnico": "",
                     "serial": "",
                     "estado_avance": "",
                     "estado_pago": false,
-                    "valor":0,
-                    "productos":[
+                    "valor": 0,
+                    "productos": [
                         {
-                            "nombre":"",
-                            "valor":0
+                            "nombre": "",
+                            "valor": 0
+                        }
+                    ]
+                },
+                {
+                    "id_solicitud": "2",
+                    "cliente": "Bu\u00c3\u00b1uelo",
+                    "tecnico": "",
+                    "serial": "1111",
+                    "estado_avance": "asignado",
+                    "estado_pago": false,
+                    "valor": 900000,
+                    "productos": [
+                        {
+                            "nombre": "NVIDIA GeForce GTX 1660 Super",
+                            "precio": 900000
                         }
                     ]
                 }
             ]
-            
         }
     ],
-    "productos":{
-        "graficas":[
+    "productos": {
+        "graficas": [
             {
-                "nombre":"NVIDIA GeForce RTX 3060",
-                "precio":1300000
+                "nombre": "NVIDIA GeForce RTX 3060",
+                "precio": 1300000
             },
             {
-                "nombre":"AMD Radeon RX 6700 XT",
-                "precio":1700000
+                "nombre": "AMD Radeon RX 6700 XT",
+                "precio": 1700000
             },
             {
-                "nombre":"NVIDIA GeForce RTX 3060 Ti",
-                "precio":1700000
+                "nombre": "NVIDIA GeForce RTX 3060 Ti",
+                "precio": 1700000
             },
             {
-                "nombre":"AMD Radeon RX 6600 XT",
-                "precio":1100000
+                "nombre": "AMD Radeon RX 6600 XT",
+                "precio": 1100000
             },
             {
-                "nombre":"NVIDIA GeForce GTX 1660 Super",
-                "precio":900000
+                "nombre": "NVIDIA GeForce GTX 1660 Super",
+                "precio": 900000
             },
             {
-                "nombre":"AMD Radeon RX 6800",
-                "precio":2100000
+                "nombre": "AMD Radeon RX 6800",
+                "precio": 2100000
             },
             {
-                "nombre":"NVIDIA GeForce RTX 3070",
-                "precio":2200000
+                "nombre": "NVIDIA GeForce RTX 3070",
+                "precio": 2200000
             },
             {
-                "nombre":"AMD Radeon RX 6650 XT",
-                "precio":1300000
+                "nombre": "AMD Radeon RX 6650 XT",
+                "precio": 1300000
             }
         ],
-        "procesadores":[
+        "procesadores": [
             {
-                "nombre":"Intel Core i5-13600KF",
-                "nucleos/hilos":"14 (6 P-cores + 8 E-cores)",
-                "velocidad":"Hasta 5.1 GHz",
-                "precio":1066000
+                "nombre": "Intel Core i5-13600KF",
+                "nucleos/hilos": "14 (6 P-cores + 8 E-cores)",
+                "velocidad": "Hasta 5.1 GHz",
+                "precio": 1066000
+            },
+            {
+                "nombre": "AMD Ryzen 7 5800X3D",
+                "nucleos/hilos": "8/16",
+                "velocidad": "3.4 GHz base, 4.5 GHz boost",
+                "precio": 1360000
+            },
+            {
+                "nombre": "AMD Ryzen 5 5600G",
+                "nucleos/hilos": "6/12",
+                "velocidad": "3.9 GHz base, 4.4 GHz boost",
+                "precio": 725000
+            },
+            {
+                "nombre": "AMD Ryzen 7 5700X",
+                "nucleos/hilos": "8/16",
+                "velocidad": "3.4 GHz base, 4.6 GHz boost",
+                "precio": 790000
+            },
+            {
+                "nombre": "Intel Core i3-12100F",
+                "nucleos/hilos": "4/8",
+                "velocidad": "3.3 GHz base, 4.3 GHz boost",
+                "precio": 386000
             }
         ],
-        "ram":[
+        "ram": [
             {
                 "nombre": "Kingston HyperX Fury",
-                "GB":"4GB",
+                "GB": "4GB",
                 "precio": 200000,
-                "frecuencia":"1600 MHz",
+                "frecuencia": "1600 MHz",
                 "blindada": "si"
             },
             {
                 "nombre": "Corsair Vengeance LPX",
                 "GB": "16 GB (2X8 GB)",
                 "precio": 500000,
-                "frecuencia":"3600 MHz",
+                "frecuencia": "3600 MHz",
                 "blindada": "si"
             },
             {
                 "nombre": "G.Skill Ripjaws V",
                 "GB": "16 GB (2X8 GB)",
-                "precio": 450000 ,
-                "frecuencia":"3000 MHz",
+                "precio": 450000,
+                "frecuencia": "3000 MHz",
                 "blindada": "si"
-            },
+            }
+        ],
+        "fuentes_de_poder": [
             {
-                
+                "nombre": "Cooler Master MWE 650W 80 Plus Bronze",
+                "precio": ""
             }
         ]
     }
-    
 }
