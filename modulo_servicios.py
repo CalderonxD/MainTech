@@ -302,7 +302,7 @@ def modificar_servicio_al_usuario(datos):
         else:
             print("Valor invalido")
 
-#def consultar_realizacion_mantenimiento(id_cliente, datos_servicios):
+#def consultar_avance_solicitud(id_cliente, datos_servicios):
     id_solicitud_ingresado= input("Ingrese el id de su solicitud de servicio: ")
     id_solicitud_encontrado=False
     
@@ -335,7 +335,7 @@ def modificar_servicio_al_usuario(datos):
         print("Lo sentimos, no existe un id de solicitud ", id_solicitud_ingresado, "relacionado a su documento")              
   
 
-#def consultar_solicitudes_mantenimiento(id_cliente, datos_servicios):
+#def consultar_historial_solicitudes(id_cliente, datos_servicios):
     solicitudes=[]
     datos_usuarios=bajar_datos("usuarios.json")
     
