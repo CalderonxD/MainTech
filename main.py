@@ -5,8 +5,9 @@ from modulo_usuarios import *
 from modulo_tecnicos import *
 from menus import *
 from modulo_servicios import *
-from modulo_servicios import registro_mantenimiento
 from datos import subir_datos
+from contactanos import*
+from preguntasyrespuesta import*
 #constantes
 RUTA_USUARIOS = "usuarios.json"
 RUTA_SERVICIOS = "servicios.json"
@@ -26,5 +27,10 @@ while True:
     #subir_datos(datosServicios,RUTA_SERVICIOS)       
     #break
 
-    mostrar_servicios(datosServicios)
+    #mostrar_servicios(datosServicios)
+    #break
+    
+    #empresa.mostrar_informacion_contacto()
+    mostrar_informacion_contacto(empresa)
     break
+
