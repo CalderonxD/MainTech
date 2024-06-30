@@ -1,4 +1,4 @@
-# import json
+import json
 
 
 
@@ -75,5 +75,6 @@ def editar_usuario(datos):
 
 def mostrar_usuario(datos):
     for usuario in datos["usuarios"]:
-        if usuario["rol"].lower() == "usuario":
+        if usuario["rol"].lower() == "tecnico":
             print(usuario)
+
