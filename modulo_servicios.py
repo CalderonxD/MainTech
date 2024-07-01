@@ -1,5 +1,5 @@
 # from datos import *
-
+from modulo_ventas import*
 def registro_mantenimiento(datosCliente, datosServicio):
     while True:
         try:
@@ -32,6 +32,7 @@ def registro_mantenimiento(datosCliente, datosServicio):
                             }
                             datosServicio["servicios"][opc - 1]["solicitudes"].append(limpieza)
                             print("Servicio de Limpieza registrado exitosamente!")
+                            registrar_historial_limpieza(limpieza["id_solicitud"], limpieza["cliente"], 0)
                             break
         
         elif opc == 2:
@@ -49,7 +50,9 @@ def registro_mantenimiento(datosCliente, datosServicio):
                             }
                             datosServicio["servicios"][opc - 1]["solicitudes"].append(reestablecer)
                             print("Servicio de Reestablecer Equipo registrado exitosamente!")
+                            registrar_historial_restablecer(reestablecer["id_solicitud"], reestablecer["cliente"], 0)
                             break
+                    
 
         elif opc == 3:
             for usuario in datosCliente["usuarios"]:
@@ -95,6 +98,8 @@ def registro_mantenimiento(datosCliente, datosServicio):
                             }
                             datosServicio["servicios"][opc - 1]["solicitudes"].append(comprar_instalar)
                             print("Servicio de Comprar e Instalar Productos registrado exitosamente!")
+                             # Registrar compra en historial de ventas
+                            registrar_compra(comprar_instalar["id_solicitud"], usuario["nombre"], total_valor, productos_seleccionados)
                             break
         
         else:
@@ -274,25 +279,175 @@ def modificar_servicio_al_usuario(datos):
 
 
 
-#def cancelar_solicitud_mantenimiento(datos):
-    id_solicitud_ingresado= input("Ingrese el id de su solicitud de servicio: ")
-    for servicio in datos["servicios"]:
+
+#Funcion que permite  al tecnico consultar si existen solicitudes pendientes por realizar
+def consultar_solicitudes_pendientes(datos_servicios):
+    solicitudes=[]
+    datos_usuarios=bajar_datos("usuarios.json")
+    
+    for servicio in datos_servicios["servicios"]:
         for i in range(len(servicio["solicitudes"])):
-            if servicio["solicitudes"][i]["id_socilitud"]==id_solicitud_ingresado and servicio["equipos_asignados"][i]["estado_pago"]==False:
+            if servicio["solicitudes"][i]["tecnico"]=="" and servicio["solicitudes"][i]["estado_pago"]==True and servicio["servicio"]!="comprar e instalar productos":
+                diccionario={}
+                diccionario["servicio"]=servicio["servicio"]
+                diccionario["id_solicitud"]=servicio["solicitudes"][i]["id_solicitud"]
+                #diccionario["fecha_registro"]=servicio["solicitudes"][i]["fecha"]
+                diccionario["cliente"]=servicio["solicitudes"][i]["cliente"]
+                diccionario["serial_equipo"]=servicio["solicitudes"][i]["serial"]
+                for usuario in datos_usuarios["usuarios"]:
+                    if usuario["nombre"]==servicio["solicitudes"][i]["cliente"] and usuario["rol"]=="Cliente":
+                        telefono_cliente=usuario["numero"]
+                        break
+                diccionario["telefono_cliente"]=telefono_cliente
+                solicitudes.append(diccionario)
+                
+            elif servicio["solicitudes"][i]["tecnico"]=="" and servicio["solicitudes"][i]["estado_pago"]==True and servicio["servicio"]=="comprar e instalar productos":
+                diccionario={}
+                diccionario["servicio"]=servicio["servicio"]
+                diccionario["id_solicitud"]=servicio["solicitudes"][i]["id_solicitud"]
+                #diccionario["fecha_registro"]=servicio["solicitudes"][i]["fecha"]
+                diccionario["cliente"]=servicio["solicitudes"][i]["cliente"]
+                diccionario["serial_equipo"]=servicio["solicitudes"][i]["serial"]
+                for usuario in datos_usuarios["usuarios"]:
+                    if usuario["nombre"]==servicio["solicitudes"][i]["cliente"] and usuario["rol"]=="Cliente":
+                        telefono_cliente=usuario["numero"]
+                        break
+                diccionario["telefono_cliente"]=telefono_cliente
+                diccionario["productos"]=servicio["solicitudes"][i]["productos"]
+                solicitudes.append(diccionario)
+    
+    if len(solicitudes)!=0:
+        for diccionario in solicitudes:
+            for llave,valor in diccionario.items():
+                if llave!="productos" and llave!="valor":
+                    print(f"{(llave.capitalize()).replace("_"," ")}: {valor}")
+                else:
+                    print(f"{(llave.capitalize()).replace("_"," ")}:")
+                    for i in range(len(valor)):
+                        print(f"{i+1}. {valor[i]["nombre"]}")
+            print("")
+    else:
+        print("No existen solicitudes perndientes por el momento")
+
+
+#Funcion que permite al tecnico consultar las solicitudes que esta realizando
+def consultar_solicitudes_por_realizar(id_tecnico, datos_servicios):
+    solicitudes=[]
+    datos_usuarios=bajar_datos("usuarios.json")
+    
+    for usuario in datos_usuarios["usuarios"]:
+        if usuario["id"]==id_tecnico and usuario["rol"]=="Tecnico":
+            nombre_tecnico=usuario["nombre"]
+            break
+    
+    for servicio in datos_servicios["servicios"]:
+        for i in range(len(servicio["solicitudes"])):
+            if servicio["solicitudes"][i]["tecnico"]==nombre_tecnico and servicio["solicitudes"][i]["estado_avance"]!="finalizado" and servicio["servicio"]!="comprar e instalar productos":
+                diccionario={}
+                diccionario["servicio"]=servicio["servicio"]
+                diccionario["id_solicitud"]=servicio["solicitudes"][i]["id_solicitud"]
+                #diccionario["fecha_registro"]=servicio["solicitudes"][i]["fecha"]
+                diccionario["estado_avance"]=servicio["solicitudes"][i]["estado_avance"]
+                diccionario["cliente"]=servicio["solicitudes"][i]["cliente"]
+                diccionario["serial_equipo"]=servicio["solicitudes"][i]["serial"]
+                for usuario in datos_usuarios["usuarios"]:
+                    if usuario["nombre"]==servicio["solicitudes"][i]["cliente"] and usuario["rol"]=="Cliente":
+                        telefono_cliente=usuario["numero"]
+                        break
+                diccionario["telefono_cliente"]=telefono_cliente
+                solicitudes.append(diccionario)
+                
+            elif servicio["solicitudes"][i]["tecnico"]==nombre_tecnico and servicio["solicitudes"][i]["estado_avance"]!="finalizado" and servicio["servicio"]=="comprar e instalar productos":
+                diccionario={}
+                diccionario["servicio"]=servicio["servicio"]
+                diccionario["id_solicitud"]=servicio["solicitudes"][i]["id_solicitud"]
+                #diccionario["fecha_registro"]=servicio["solicitudes"][i]["fecha"]
+                diccionario["estado_avance"]=servicio["solicitudes"][i]["estado_avance"]
+                diccionario["cliente"]=servicio["solicitudes"][i]["cliente"]
+                diccionario["serial_equipo"]=servicio["solicitudes"][i]["serial"]
+                for usuario in datos_usuarios["usuarios"]:
+                    if usuario["nombre"]==servicio["solicitudes"][i]["cliente"] and usuario["rol"]=="Cliente":
+                        telefono_cliente=usuario["numero"]
+                        break
+                diccionario["telefono_cliente"]=telefono_cliente
+                diccionario["productos"]=servicio["solicitudes"][i]["productos"]
+                solicitudes.append(diccionario)
+    
+    if len(solicitudes)!=0:
+        for diccionario in solicitudes:
+            for llave,valor in diccionario.items():
+                if llave!="productos" and llave!="valor":
+                    print(f"{(llave.capitalize()).replace("_"," ")}: {valor}")
+                else:
+                    print(f"{(llave.capitalize()).replace("_"," ")}:")
+                    for i in range(len(valor)):
+                        print(f"{i+1}. {valor[i]["nombre"]}")
+            print("")
+    else:
+        print("No existen solicitudes que este realizando por el momento")    
+
+
+#Funcion que permite al tecnico actualizar el estado de avance de la solicitud
+def actualizar_avance_solicitud(id_tecnico, datos_servicios):
+    datos_usuarios=bajar_datos("usuarios.json")
+    solicitud_encontrada=False
+    
+    for usuario in datos_usuarios["usuarios"]:
+        if usuario["id"]==id_tecnico and usuario["rol"]=="Tecnico":
+            nombre_tecnico=usuario["nombre"]
+            break
+    
+    id_solicitud_ingresado= input("Ingrese el id de la solicitud de servicio a la que desea actualizarle el estado de avance: ")
+    for servicio in datos_servicios["servicios"]:
+        for i in range(len(servicio["solicitudes"])):
+            if servicio["solicitudes"][i]["id_solicitud"]==id_solicitud_ingresado and servicio["solicitudes"][i]["tecnico"]==nombre_tecnico:
+                solicitud_encontrada=True
+                estado_avance=input("Ingrese el estado de avance de la solicitud: ")
+                servicio["solicitudes"][i]["estado_avance"]=estado_avance.lower()
+                print("El estado de avance de la solicitud se ha actualizado correctamente")
+                return datos_servicios
+        
+    if solicitud_encontrada==False:
+        print("No se pudo entrar un id de solicitud", id_solicitud_ingresado, "relacionado a su documento")
+        return datos_servicios        
+
+
+#Funcion que permite a un cliente cancelar (borrar del json) una solicitud de mantenimiento si todavia no se ha pagado
+def cancelar_solicitud_mantenimiento(id_cliente, datos_servicios):
+    solicitud_encontrada=False
+    datos_usuarios=bajar_datos("usuarios.json")
+    
+    for usuario in datos_usuarios["usuarios"]:
+        if usuario["id"]==id_cliente and usuario["rol"]=="Cliente":
+            nombre_cliente=usuario["nombre"]
+            break
+    
+    id_solicitud_ingresado= input("Ingrese el id de su solicitud de servicio: ")
+    for servicio in datos_servicios["servicios"]:
+        for i in range(len(servicio["solicitudes"])):
+            if servicio["solicitudes"][i]["id_solicitud"]==id_solicitud_ingresado and servicio["solicitudes"][i]["estado_pago"]==False and servicio["solicitudes"][i]["cliente"]==nombre_cliente:
+                solicitud_encontrada=True
                 decision=confirmar_decision()
                 if decision:
                     servicio["solicitudes"].pop(i)
                     print("Su solicitud de mantenimiento ha sido cancelada correctamente")
-                    return datos
+                    return datos_servicios
                 else:
                     print("Su solicitud de mantenimiento no ha sido cancelada")
-                    return datos
+                    return datos_servicios
                 
-            elif servicio["solicitudes"][i]["id_socilitud"]==id_solicitud_ingresado and servicio["equipos_asignados"][i]["estado_pago"]==True:
+            elif servicio["solicitudes"][i]["id_solicitud"]==id_solicitud_ingresado and servicio["solicitudes"][i]["estado_pago"]==True and servicio["solicitudes"][i]["cliente"]==nombre_cliente:
+                solicitud_encontrada=True
                 print("Su solicitud de mantenimiento no puede ser cancelada porque ya se realizo el pago")
-                return datos
+                return datos_servicios
+    
+    if solicitud_encontrada==False:
+        print("Lo sentimos, no encontramos un id de solicitud", id_solicitud_ingresado, "relacionado a su documento")
+        return datos_servicios
 
-#def confirmar_decision():
+
+#funcion que permite confirmar una decision tomada
+def confirmar_decision():
     while True:
         decision = input("¿Esta seguro que desea realizar esta acción? (Si o No)")
         if decision.lower()=="si":
@@ -300,9 +455,11 @@ def modificar_servicio_al_usuario(datos):
         elif decision.lower()=="no":
             return False
         else:
-            print("Valor invalido")
-
-#def consultar_avance_solicitud(id_cliente, datos_servicios):
+            print("Valor invalido")            
+       
+                
+#Funcion que permite a un cliente consultar el estado de avance de una solicitud de servicio ingresando su id
+def consultar_avance_solicitud(id_cliente, datos_servicios):
     id_solicitud_ingresado= input("Ingrese el id de su solicitud de servicio: ")
     id_solicitud_encontrado=False
     
@@ -315,9 +472,9 @@ def modificar_servicio_al_usuario(datos):
     
     for servicio in datos_servicios["servicios"]:
         for i in range(len(servicio["solicitudes"])):
-            if servicio["solicitudes"][i]["id_socilitud"]==id_solicitud_ingresado and servicio["solicitudes"][i]["cliente"]==nombre_cliente:
+            if servicio["solicitudes"][i]["id_solicitud"]==id_solicitud_ingresado and servicio["solicitudes"][i]["cliente"]==nombre_cliente:
                 id_solicitud_encontrado=True
-                print("El estado de su solicitud es:", servicio["solicitudes"][i]["estado_avance"])
+                print("El estado de avance de su solicitud es:", servicio["solicitudes"][i]["estado_avance"])
                 tecnico_solicitud=servicio["solicitudes"][i]["tecnico"]
                 
                 if tecnico_solicitud!="":
@@ -332,10 +489,12 @@ def modificar_servicio_al_usuario(datos):
                 break
     
     if id_solicitud_encontrado==False:
-        print("Lo sentimos, no existe un id de solicitud ", id_solicitud_ingresado, "relacionado a su documento")              
-  
+        print("Lo sentimos, no existe un id de solicitud", id_solicitud_ingresado, "relacionado a su documento")              
+ 
 
-#def consultar_historial_solicitudes(id_cliente, datos_servicios):
+
+#Funcion que permite al cliente consultar el historial de las solicitudes que ha realizado
+def consultar_historial_solicitudes(id_cliente, datos_servicios):
     solicitudes=[]
     datos_usuarios=bajar_datos("usuarios.json")
     
@@ -362,7 +521,33 @@ def modificar_servicio_al_usuario(datos):
                 else:
                     print(f"{(llave.capitalize()).replace("_"," ")}:")
                     for i in range(len(valor)):
-                        print(f"{i+1}. {valor[i]["nombre"]}  {valor[i]["valor"]}")
+                        print(f"{i+1}. {valor[i]["nombre"]}  {valor[i]["precio"]}")
             print("")
     else:
-        print("No existen solicitudes relacionadas a su documento")
+        print("Lo sentimos, no existen solicitudes relacionadas a su documento")
+
+
+#Funcion que permite al tecnico elegir una solicitud para realizar (poner su nombre en el campo "tecnico" de una solicitud del json)
+def elegir_solicitud_para_realizar(id_tecnico, datos_servicios):
+    datos_usuarios=bajar_datos("usuarios.json")
+    solicitud_encontrada=False
+    
+    for usuario in datos_usuarios["usuarios"]:
+        if usuario["id"]==id_tecnico and usuario["rol"]=="Tecnico":
+            nombre_tecnico=usuario["nombre"]
+            break
+    
+    id_solicitud_ingresado= input("Ingrese el id de la solicitud de servicio que desea realizar: ")
+    for servicio in datos_servicios["servicios"]:
+        for i in range(len(servicio["solicitudes"])):
+            if servicio["solicitudes"][i]["id_solicitud"]==id_solicitud_ingresado and servicio["solicitudes"][i]["tecnico"]=="" and servicio["solicitudes"][i]["estado_pago"]==True:
+                solicitud_encontrada=True
+                servicio["solicitudes"][i]["tecnico"]=nombre_tecnico
+                print("La solicitud se le ha asignado correctamente")
+                print("Las solicitudes que tiene por realizar son: ")
+                consultar_solicitudes_por_realizar(id_tecnico, datosServicios)
+                return datos_servicios
+        
+    if solicitud_encontrada==False:
+        print("No se pudo entrar un id de solicitud", id_solicitud_ingresado, "en las solicitudes de servicio pendientes")
+        return datos_servicios        
