@@ -449,7 +449,7 @@ def cancelar_solicitud_mantenimiento(id_cliente, datos_servicios):
 #funcion que permite confirmar una decision tomada
 def confirmar_decision():
     while True:
-        decision = input("¿Esta seguro que desea realizar esta acción? (Si o No)")
+        decision = input("¿Esta seguro que desea realizar esta acción? (Si o No): ")
         if decision.lower()=="si":
             return True
         elif decision.lower()=="no":
