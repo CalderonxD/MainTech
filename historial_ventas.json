@@ -1,0 +1,64 @@
+{
+    "compras": [
+        {
+            "fecha": "2024-06-30 19:15:12",
+            "id_solicitud": "3",
+            "cliente": "Bu\u00c3\u00b1uelo",
+            "valor_total": 1360000,
+            "productos": [
+                {
+                    "nombre": "AMD Ryzen 7 5800X3D",
+                    "nucleos/hilos": "8/16",
+                    "velocidad": "3.4 GHz base, 4.5 GHz boost",
+                    "precio": 1360000
+                }
+            ]
+        }
+    ],
+    "limpieza": [
+        {
+            "id_solicitud": "",
+            "cliente": "",
+            "valor_total": "",
+            "fecha": ""
+        },
+        {
+            "id_solicitud": "4",
+            "cliente": "Bu\u00c3\u00b1uelo",
+            "valor_total": 0,
+            "fecha": "2024-06-30 20:30:48"
+        },
+        {
+            "id_solicitud": "4",
+            "cliente": "Bu\u00c3\u00b1uelo",
+            "valor_total": 0,
+            "fecha": "2024-06-30 20:38:00"
+        },
+        {
+            "id_solicitud": "4",
+            "cliente": "Bu\u00c3\u00b1uelo",
+            "valor_total": 30000,
+            "fecha": "2024-06-30 20:41:50"
+        }
+    ],
+    "reestablecer": [
+        {
+            "id_solicitud": "",
+            "cliente": "",
+            "valor_total": "",
+            "fecha": ""
+        },
+        {
+            "id_solicitud": "5",
+            "cliente": "Bu\u00c3\u00b1uelo",
+            "valor_total": 0,
+            "fecha": "2024-06-30 20:37:45"
+        },
+        {
+            "id_solicitud": "5",
+            "cliente": "Bu\u00c3\u00b1uelo",
+            "valor_total": 20000,
+            "fecha": "2024-06-30 20:42:21"
+        }
+    ]
+}
