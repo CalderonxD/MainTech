@@ -5,7 +5,7 @@
             "precio": "30000",
             "solicitudes": [
                 {
-                    "id_socilitud": "",
+                    "id_solicitud": "",
                     "cliente": "",
                     "tecnico": "",
                     "serial": "",
@@ -35,7 +35,7 @@
             "precio": "20000",
             "solicitudes": [
                 {
-                    "id_socilitud": "",
+                    "id_solicitud": "",
                     "cliente": "",
                     "tecnico": "",
                     "serial": "",
@@ -73,7 +73,7 @@
             "precio": "30000",
             "solicitudes": [
                 {
-                    "id_socilitud": "",
+                    "id_solicitud": "",
                     "cliente": "",
                     "tecnico": "",
                     "serial": "",
@@ -83,7 +83,7 @@
                     "productos": [
                         {
                             "nombre": "",
-                            "valor": 0
+                            "precio": 0
                         }
                     ]
                 },

@@ -8,9 +8,11 @@ from modulo_servicios import *
 from datos import subir_datos
 from contactanos import*
 from preguntasyrespuesta import*
+from modulo_ventas import *
 #constantes
 RUTA_USUARIOS = "usuarios.json"
 RUTA_SERVICIOS = "servicios.json"
+RUTA_HISTORIAL_VENTAS = "historial_ventas.json"
 #cargar datos
 while True:
     datosUsuario = bajar_datos(RUTA_USUARIOS)
@@ -20,7 +22,7 @@ while True:
     #datosUsuario = editar_usuario(datosUsuario)
     
     # agregar_servicio(datosServicios)
-    #registro_mantenimiento(datosUsuario,datosServicios)
+    registro_mantenimiento(datosUsuario,datosServicios)
     #subir_datos(datosServicios,RUTA_SERVICIOS)
 
     #(datosServicios)
@@ -31,6 +33,7 @@ while True:
     #break
     
     #empresa.mostrar_informacion_contacto()
-    mostrar_informacion_contacto(empresa)
+    #mostrar_informacion_contacto(empresa)
+    #mostrar_ventas_ganancias(RUTA_HISTORIAL_VENTAS)
     break
 
