@@ -1,6 +1,7 @@
 # from datos import *
+from datos import*
 from modulo_ventas import*
-def registro_mantenimiento(datosCliente, datosServicio):
+def registro_mantenimieno(id_usuario,datosCliente, datosServicio):
     while True:
         try:
             print("Ingrese el número del servicio que desea contratar:")
@@ -15,11 +16,11 @@ def registro_mantenimiento(datosCliente, datosServicio):
             print("Operación interrumpida por el usuario.")
             break
         
-        cedula = "1097097808"  # Cédula del cliente (puedes cambiar esto según tus necesidades)
+        
         
         if opc == 1:
             for usuario in datosCliente["usuarios"]:
-                if usuario["id"] == cedula:
+                if usuario["id"] == id_usuario:
                     if usuario.get("equipos"):
                         for equipo in usuario["equipos"]:
                             limpieza = {
@@ -37,7 +38,7 @@ def registro_mantenimiento(datosCliente, datosServicio):
         
         elif opc == 2:
             for usuario in datosCliente["usuarios"]:
-                if usuario["id"] == cedula:
+                if usuario["id"] == id_usuario:
                     if usuario.get("equipos"):
                         for equipo in usuario["equipos"]:
                             reestablecer = {
@@ -56,7 +57,7 @@ def registro_mantenimiento(datosCliente, datosServicio):
 
         elif opc == 3:
             for usuario in datosCliente["usuarios"]:
-                if usuario["id"] == cedula:
+                if usuario["id"] == id_usuario:
                     if usuario.get("equipos"):
                         for equipo in usuario["equipos"]:
                             # Mostrar y seleccionar productos disponibles
@@ -283,7 +284,7 @@ def modificar_servicio_al_usuario(datos):
 #Funcion que permite  al tecnico consultar si existen solicitudes pendientes por realizar
 def consultar_solicitudes_pendientes(datos_servicios):
     solicitudes=[]
-    datos_usuarios=bajar_datos("usuarios.json")
+    datos_usuarios= bajar_datos("usuarios.json")
     
     for servicio in datos_servicios["servicios"]:
         for i in range(len(servicio["solicitudes"])):
