@@ -67,6 +67,18 @@
             "cliente": "juan carlos",
             "valor_total": 30000,
             "fecha": "2024-07-02 03:57:01"
+        },
+        {
+            "id_solicitud": "5",
+            "cliente": "juan carlos",
+            "valor_total": 30000,
+            "fecha": "2024-07-02 11:42:39"
+        },
+        {
+            "id_solicitud": "6",
+            "cliente": "juan carlos",
+            "valor_total": 30000,
+            "fecha": "2024-07-02 11:45:29"
         }
     ],
     "reestablecer": [

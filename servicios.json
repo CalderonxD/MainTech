@@ -15,15 +15,15 @@
                 {
                     "id_solicitud": "2",
                     "cliente": "Bu\u00c3\u00b1uelo",
-                    "tecnico": "",
+                    "tecnico": "eder",
                     "serial": "1111",
                     "estado_avance": "asignado",
-                    "estado_pago": false
+                    "estado_pago": true
                 },
                 {
                     "id_solicitud": "3",
                     "cliente": "Bu\u00c3\u00b1uelo",
-                    "tecnico": "",
+                    "tecnico": "Santiago",
                     "serial": "1111",
                     "estado_avance": "asignado",
                     "estado_pago": false
@@ -31,7 +31,23 @@
                 {
                     "id_solicitud": "4",
                     "cliente": "juan carlos",
-                    "tecnico": "Santiago",
+                    "tecnico": "eder",
+                    "serial": "xd",
+                    "estado_avance": "desarrollo",
+                    "estado_pago": false
+                },
+                {
+                    "id_solicitud": "5",
+                    "cliente": "juan carlos",
+                    "tecnico": "",
+                    "serial": "xd",
+                    "estado_avance": "asignado",
+                    "estado_pago": false
+                },
+                {
+                    "id_solicitud": "6",
+                    "cliente": "juan carlos",
+                    "tecnico": "",
                     "serial": "xd",
                     "estado_avance": "asignado",
                     "estado_pago": false
@@ -51,34 +67,10 @@
                     "estado_pago": false
                 },
                 {
-                    "id_solicitud": "2",
-                    "cliente": "Bu\u00c3\u00b1uelo",
-                    "tecnico": "",
-                    "serial": "1111",
-                    "estado_avance": "asignado",
-                    "estado_pago": false
-                },
-                {
-                    "id_solicitud": "3",
-                    "cliente": "Bu\u00c3\u00b1uelo",
-                    "tecnico": "",
-                    "serial": "1111",
-                    "estado_avance": "asignado",
-                    "estado_pago": false
-                },
-                {
                     "id_solicitud": "4",
                     "cliente": "Bu\u00c3\u00b1uelo",
                     "tecnico": "",
                     "serial": "1111",
-                    "estado_avance": "asignado",
-                    "estado_pago": false
-                },
-                {
-                    "id_solicitud": "5",
-                    "cliente": "juan carlos",
-                    "tecnico": "",
-                    "serial": "xd",
                     "estado_avance": "asignado",
                     "estado_pago": false
                 }
@@ -115,25 +107,6 @@
                         {
                             "nombre": "NVIDIA GeForce GTX 1660 Super",
                             "precio": 900000
-                        }
-                    ]
-                },
-                {
-                    "id_solicitud": "3",
-                    "cliente": "juan carlos",
-                    "tecnico": "",
-                    "serial": "xd",
-                    "estado_avance": "asignado",
-                    "estado_pago": false,
-                    "valor": 3100000,
-                    "productos": [
-                        {
-                            "nombre": "NVIDIA GeForce GTX 1660 Super",
-                            "precio": 900000
-                        },
-                        {
-                            "nombre": "NVIDIA GeForce RTX 3070",
-                            "precio": 2200000
                         }
                     ]
                 }
