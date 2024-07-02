@@ -1,5 +1,42 @@
 import json
 
+import json
+
+def agregar_equipo(id_usuario, datosUsuarios):
+    datosUsuarios = dict(datosUsuarios)
+    for usuario in datosUsuarios["usuarios"]:
+        if usuario["id"] == id_usuario:
+            equipo = {}
+            equipo["marca"] = input("Escriba la marca de su equipo (custom si es una torre): ")
+            equipo["serial"] = input("Ingrese el serial de su equipo: ")
+            equipo["color"] = input("Ingrese el color de su equipo: ")
+            equipo["pago"] = False
+            equipo["estado"] = ""
+            equipo["servicio"] = ""
+            equipo["componentes"] = [
+                {
+                    "procesador": input("Ingrese el nombre especifico de su procesador: "),
+                    "ram": input("Ingrese el tamaño de su ram y su frecuencia(ghz): "),
+                    "grafica": input("Ingrese el nombre especifico de su tarjeta grafica: "),
+                    "board": input("Ingrese el nombre especifico de su mother board: "),
+                    "fuente": input("Ingrese el nombre especifico de su fuente de poder: ")
+                }
+            ]
+            if "equipos" not in usuario:
+                usuario["equipos"] = []
+            usuario["equipos"].append(equipo)
+            print("Equipo Registrado exitosamente!")
+
+            # Guardar los cambios en el archivo JSON
+            with open('usuarios.json', 'w', encoding='utf-8') as file:
+                json.dump(datosUsuarios, file, ensure_ascii=False, indent=4)
+            return datosUsuarios
+
+# Cargar el archivo JSON y llamar a la función como ejemplo
+with open('usuarios.json', 'r', encoding='utf-8') as file:
+    datosUsuarios = json.load(file)
+
+
 
 
 def usuario_existe(datos, id):
@@ -14,7 +51,7 @@ def registrar_usuario(datosUsuarios):
     usuario["nombre"] = input("Ingrese su nombre: ")
     usuario["numero"] = input("Ingrese su número de celular: ")
     usuario["id"] = input("Ingrese su número de identificación: ")
-    usuario["contraseña"] = input("Ingrese su contraseña:  ")
+    usuario["contrasena"] = input("Ingrese su contraseña:  ")
     usuario["direccion"] = input("Ingrese su dirección: ")
     usuario["ciudad"] = input("Ingrese su ciudad: ")
     usuario["rol"] = "Cliente"
@@ -22,28 +59,35 @@ def registrar_usuario(datosUsuarios):
     usuario["pagos"] = [
         
     ]
+    usuario["equipos"] = [
+
+    ]
+
+    
     
     datosUsuarios["usuarios"].append(usuario)
     print("Usuario registrado exitosamente!")
         
     return datosUsuarios
 
-def eliminar_usuario(datos):
+def eliminar_usuario(id_usuario,datos,datosUsuarios,datosServicios):
     datos = dict(datos)
     try:
-        documento = input("Ingrese el documento del usuario: ")
+        documento = id_usuario
+        confirmar = int(input("1. para eliminar, 0. para cancelar"))
     except KeyboardInterrupt:
         print("Operación interrumpida por el usuario")
         return datos
     
-    for i in range(len(datos["usuarios"])):
-        if datos["usuarios"][i]["documento"] == documento:
-            datos["usuarios"].pop(i)
-            print("Usuario eliminado!")
-            return datos
-    
-    print("Participante no existe")
-    return datos
+    if  confirmar == 1:
+        for i in range(len(datos["usuarios"])):
+            if datos["usuarios"][i]["id"] == documento:
+                datos["usuarios"].pop(i)
+                print("Usuario eliminado!")
+                return datos
+        return datos
+    else:
+        return datos
 
 def editar_usuario(datos):
     datos = dict(datos)
