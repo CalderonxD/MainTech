@@ -95,15 +95,15 @@ def editar_usuario(datos):
 
     try:
         for usuario in datos["usuarios"]:
-            if usuario["documento"] == buscar_usuario:
+            if usuario["id"] == buscar_usuario:
                 print("Usuario encontrado!")
                 nuevo_nombre = input("Nuevo nombre (Enter para dejar sin cambios): ")
                 nuevo_id = input("Nuevo documento (Enter para dejar sin cambios): ")
-                nuevo_ciudad = input("Nueva ciudad(Enter para dejar sin cambios): ")
-                nuevo_direccion = input("Nueva Ciudad (Enter para dejar sin cambios): ")
+                nuevo_ciudad = input("Nueva Ciudad(Enter para dejar sin cambios): ")
+                nuevo_direccion = input("Nueva Direccion (Enter para dejar sin cambios): ")
                 nuevo_numero = input("Nuevo numero(Enter para dejar sin cambios): ")
                 if nuevo_id:
-                    usuario["documento"] = nuevo_id
+                    usuario["id"] = nuevo_id
                 if nuevo_nombre:
                     usuario["nombre"] = nuevo_nombre
                 if nuevo_ciudad:
