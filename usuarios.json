@@ -1,49 +1,57 @@
 {
-    "usuarios":[
+    "usuarios": [
         {
-            "nombre":"Santiago",
-            "numero":"3001438671",
-            "id":"1099736902",
-            "contrasena":"xd",
+            "nombre": "Santiago",
+            "numero": "3001438671",
+            "id": "1099736902",
+            "contrasena": "xd",
             "direccion": "cra 28 #16-61",
             "ciudad": "Bucaramanga",
-            "rol":"Tecnico",
+            "rol": "Tecnico",
             "servicio": ""
         },
         {
-            "nombre":"Buñuelo",
-            "numero":"3162249944",
-            "id":"1097097808",
-            "contrasena":"xd",
+            "nombre": "Bu\u00c3\u00b1uelo",
+            "numero": "3162249944",
+            "id": "1097097808",
+            "contrasena": "xd",
             "direccion": "cra xd",
             "ciudad": "Bucaramanga",
-            "rol":"Cliente",
-            "billetera":0,
-            "pagos":[
+            "rol": "Cliente",
+            "billetera": 0,
+            "pagos": [
                 {
-                    "monto":0,
-                    "fecha":""
+                    "monto": 0,
+                    "fecha": ""
                 }
             ],
-            "equipos":[
+            "equipos": [
                 {
-                    "marca":"custom",
-                    "serial":"1111",
-                    "color":"negro",
-                    "pago":"no",
-                    "estado":"asignado",
-                    "servicio":"limpieza",
-                    "componentes":[
+                    "marca": "custom",
+                    "serial": "1111",
+                    "color": "negro",
+                    "pago": "no",
+                    "estado": "asignado",
+                    "servicio": "limpieza",
+                    "componentes": [
                         {
-                            "procesador":"i7 3700",
-                            "ram":"2(8GB) 3100ghz",
-                            "grafica":"RTX 1550 TI",
-                            "board":"kajsdkjasd",
-                            "fuente":"650 reales"
+                            "procesador": "i7 3700",
+                            "ram": "2(8GB) 3100ghz",
+                            "grafica": "RTX 1550 TI",
+                            "board": "kajsdkjasd",
+                            "fuente": "650 reales"
                         }
                     ]
                 }
             ]
+        },
+        {
+            "nombre": "joan",
+            "numero": "124124124",
+            "id": "4444",
+            "contrase\u00f1a": "xd",
+            "direccion": "cra xd",
+            "ciudad": "bucaramanga"
         }
     ]
 }

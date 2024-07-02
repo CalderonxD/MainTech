@@ -8,8 +8,8 @@ def usuario_existe(datos, id):
             return True
     return False
 
-def registrar_usuario(datos):
-    datos = dict(datos)
+def registrar_usuario(datosUsuarios):
+    datosUsuarios = dict(datosUsuarios)
     usuario = {}
     usuario["nombre"] = input("Ingrese su nombre: ")
     usuario["numero"] = input("Ingrese su número de celular: ")
@@ -17,11 +17,16 @@ def registrar_usuario(datos):
     usuario["contraseña"] = input("Ingrese su contraseña:  ")
     usuario["direccion"] = input("Ingrese su dirección: ")
     usuario["ciudad"] = input("Ingrese su ciudad: ")
+    usuario["rol"] = "Cliente"
+    usuario["billetera"] = 0
+    usuario["pagos"] = [
+        
+    ]
     
-    datos["usuarios"].append(usuario)
+    datosUsuarios["usuarios"].append(usuario)
     print("Usuario registrado exitosamente!")
         
-    return datos
+    return datosUsuarios
 
 def eliminar_usuario(datos):
     datos = dict(datos)

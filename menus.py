@@ -1,5 +1,6 @@
 from datos import *
 import json
+from modulo_usuarios import *
 # from main import datosUsuario
 # from main import datosServicios
 RUTA_USUARIOS = "usuarios.json"
@@ -18,12 +19,17 @@ def menu_principal(datos_usuario):
         print(opciones[i].center(longitud_total))
     return datos_usuario
 
-def ejecutable(datos_usuario):
+def ejecutable(datos_usuario,datosServicios):
     opc = 0
     while True:
         menu_principal(datos_usuario)
         try:
             opc = int(input("-"))
+            print("╭───────────────────────────────────────╮")
+            print("│                                       │")
+            print("│            ¡Opción ingresada!         │")
+            print("│                                       │")
+            print("╰───────────────────────────────────────╯")
             if opc not in [1,2,3]:
                 raise ValueError("Opcion invalida")
         except Exception as error:
@@ -32,38 +38,49 @@ def ejecutable(datos_usuario):
         else:
             if opc == 1:
                 datosUsuarios = bajar_datos(RUTA_USUARIOS)
-                # datosServicios = bajar_datos(RUTA_SERVICIOS)
-                datosUsuarios = opcion_sesion(datosUsuarios)
+                datosUsuarios = opcion_sesion(datosUsuarios,datosServicios)
+                break
+            elif opc == 2:
+                datosUsuarios = bajar_datos(RUTA_USUARIOS)
+                datosUsuarios = registrar_usuario(datosUsuarios)
+                subir_datos(datosUsuarios,RUTA_USUARIOS)
+            elif opc == 3:
+                print("--------------------SALIENDO---------------------")
+                break
+            break
+        subir_datos(datosUsuarios,RUTA_USUARIOS)
+                
 
-def opcion_sesion(datosUsuarios):
+def opcion_sesion(datosUsuarios,datosServicios):
     while True:
-        try:
-            usuario_id = input("Ingrese su id o cedula: ")
-            usuario_clave = input("ingrese su contraseña: ")
-            usuario_encontrado = False
-            for usuario_info in datosUsuarios["usuarios"]:
-                if  usuario_info["id"] == usuario_id and usuario_info["contrasena"] == usuario_clave:
-                        usuario_encontrado: True
-                        if usuario_info["rol"] == "Cliente":
-                            
-                            menu_clientes(datosUsuarios)
-                        elif usuario_info["rol"] == "Tecnico":
-                            menu_tecnicos(datosUsuarios)
-
-            if not usuario_encontrado:
+        usuario_id = input("Ingrese su id o cedula: ")
+        usuario_clave = input("ingrese su contraseña: ")
+        usuario_encontrado = False
+        for usuario_info in datosUsuarios["usuarios"]:
+            if  usuario_info["id"] == usuario_id and usuario_info["contrasena"] == usuario_clave:
+                    usuario_encontrado: True
+                    if usuario_info["rol"] == "Cliente":
+                        menu_clientes()
+                    elif usuario_info["rol"] == "Tecnico":
+                        menu_tecnicos()
+                
+            elif usuario_encontrado == False:
                 print("la clave o el usuario son incorrectos")
                 continue
-
-        except Exception as error:
-            error = "opcion no valida"
-            print(error)
-        return datosUsuarios
+        break
 
 def menu_clientes(datosUsuarios,datosServicios):
-    print("hola")
+    while True:
+        print("Seleccione su opcion")
+        
+        
+        return "si"
+    
+    
     
 def menu_tecnicos(datosUsuarios,datosServicios):
-    print("hola")
+    saludo = print("hola Tecnico")
+    return saludo
 
 def pedir_opcion():
     opc = 0
