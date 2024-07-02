@@ -167,9 +167,9 @@ def editar_servicio(datos):
                 nuevo_nombre = input("Nuevo nombre (Enter para dejar sin cambios): ")
                 nuevo_precio = input("Nuevo precio (Enter para dejar sin cambios): ")
 
-                if nuevo_precio:
-                    servicios["servicio"] = nuevo_nombre
                 if nuevo_nombre:
+                    servicios["servicio"] = nuevo_nombre
+                if nuevo_precio:
                     servicios["precio"] = nuevo_precio
                 print("Servicio editado con éxito!")
                 break
@@ -183,6 +183,7 @@ def editar_servicio(datos):
 
 
 
+
 def mostrar_servicios(datos):
     for servicio in datos.get('servicios', []):
         print(f"Servicio: {servicio['servicio']}, Precio: {servicio['precio']}")
@@ -191,118 +192,55 @@ def mostrar_servicios(datos):
 
 
 
-def agregar_servicio_al_usuario(datos):
-    datos = dict(datos)
-    try:
-        buscar_usuario = input("Ingrese el documento del usuario: ")
-    except KeyboardInterrupt:
-        print("Operación interrumpida por el usuario") 
-
-    for usuario in datos["usuarios"]:
-        if usuario["id"] == buscar_usuario:
-            print("Usuario encontrado!")
-            servicio = input("Ingrese el servicio que quieres contratar: ")
-            if servicio:
-                usuario["servicio"] = servicio
-                print("Su servicio ha sido contratado con éxito!")
-                usuario_encontrado = True  
-            break  
-    
-    if not usuario_encontrado:
-        print("Usuario no encontrado")
-    
-def eliminar_servicio_al_usuario(datos):
-    datos = dict(datos)
-    try:
-        documento = input("Ingrese el documento del usuario: ")
-    except KeyboardInterrupt:
-        print("Operación interrumpida por el usuario")
-        return datos
-    for i in range(len(datos["usuarios"])):
-        if datos["usuarios"][i]["id"] == documento:
-            datos["servicio"].pop(i)
-            print("Usuario eliminado!")
-            return datos
-    
-    return datos
-
-
-def modificar_servicio_al_usuario(datos):
-    datos = dict(datos)
-    try:
-        buscar_usuario = input("Ingrese el documento del usuario: ")
-    except KeyboardInterrupt:
-        print("Operación interrumpida por el usuario")
-        return datos
-    
-    usuario_encontrado = False  
-
-    for usuario in datos["usuarios"]:
-        if usuario["id"] == buscar_usuario:
-            print("Usuario encontrado!")
-            servicio = input("Ingrese el nuevo servicio que quieres contratar: ")
-            if servicio:
-                usuario["servicio"] = servicio
-                print("Su servicio ha sido modificado con éxito!")
-                usuario_encontrado = True  
-            break  
-    
-    if not usuario_encontrado:
-        print("Usuario no encontrado")
-    
-    return datos
-
-
-
 
 #Funcion que permite  al tecnico consultar si existen solicitudes pendientes por realizar
-def consultar_solicitudes_pendientes(datos_servicios):
-    solicitudes=[]
-    datos_usuarios= bajar_datos("usuarios.json")
+def consultar_solicitudes_pendientes(datos_servicios, datos_usuarios):
+    solicitudes = []
+    datos_usuarios = bajar_datos("usuarios.json")
     
     for servicio in datos_servicios["servicios"]:
         for i in range(len(servicio["solicitudes"])):
-            if servicio["solicitudes"][i]["tecnico"]=="" and servicio["solicitudes"][i]["estado_pago"]==True and servicio["servicio"]!="comprar e instalar productos":
-                diccionario={}
-                diccionario["servicio"]=servicio["servicio"]
-                diccionario["id_solicitud"]=servicio["solicitudes"][i]["id_solicitud"]
-                #diccionario["fecha_registro"]=servicio["solicitudes"][i]["fecha"]
-                diccionario["cliente"]=servicio["solicitudes"][i]["cliente"]
-                diccionario["serial_equipo"]=servicio["solicitudes"][i]["serial"]
+            if servicio["solicitudes"][i]["tecnico"] == "" and servicio["solicitudes"][i]["estado_pago"] == True and servicio["servicio"] != "comprar e instalar productos":
+                diccionario = {}
+                diccionario["servicio"] = servicio["servicio"]
+                diccionario["id_solicitud"] = servicio["solicitudes"][i]["id_solicitud"]
+                diccionario["cliente"] = servicio["solicitudes"][i]["cliente"]
+                diccionario["serial_equipo"] = servicio["solicitudes"][i]["serial"]
+                telefono_cliente = "No disponible"  # Valor por defecto
                 for usuario in datos_usuarios["usuarios"]:
-                    if usuario["nombre"]==servicio["solicitudes"][i]["cliente"] and usuario["rol"]=="Cliente":
-                        telefono_cliente=usuario["numero"]
+                    if usuario["nombre"] == servicio["solicitudes"][i]["cliente"] and usuario["rol"] == "Cliente":
+                        telefono_cliente = usuario["numero"]
                         break
-                diccionario["telefono_cliente"]=telefono_cliente
+                diccionario["telefono_cliente"] = telefono_cliente
                 solicitudes.append(diccionario)
                 
-            elif servicio["solicitudes"][i]["tecnico"]=="" and servicio["solicitudes"][i]["estado_pago"]==True and servicio["servicio"]=="comprar e instalar productos":
-                diccionario={}
-                diccionario["servicio"]=servicio["servicio"]
-                diccionario["id_solicitud"]=servicio["solicitudes"][i]["id_solicitud"]
-                #diccionario["fecha_registro"]=servicio["solicitudes"][i]["fecha"]
-                diccionario["cliente"]=servicio["solicitudes"][i]["cliente"]
-                diccionario["serial_equipo"]=servicio["solicitudes"][i]["serial"]
+            elif servicio["solicitudes"][i]["tecnico"] == "" and servicio["solicitudes"][i]["estado_pago"] == True and servicio["servicio"] == "comprar e instalar productos":
+                diccionario = {}
+                diccionario["servicio"] = servicio["servicio"]
+                diccionario["id_solicitud"] = servicio["solicitudes"][i]["id_solicitud"]
+                diccionario["cliente"] = servicio["solicitudes"][i]["cliente"]
+                diccionario["serial_equipo"] = servicio["solicitudes"][i]["serial"]
+                telefono_cliente = "No disponible"  # Valor por defecto
                 for usuario in datos_usuarios["usuarios"]:
-                    if usuario["nombre"]==servicio["solicitudes"][i]["cliente"] and usuario["rol"]=="Cliente":
-                        telefono_cliente=usuario["numero"]
+                    if usuario["nombre"] == servicio["solicitudes"][i]["cliente"] and usuario["rol"] == "Cliente":
+                        telefono_cliente = usuario["numero"]
                         break
-                diccionario["telefono_cliente"]=telefono_cliente
-                diccionario["productos"]=servicio["solicitudes"][i]["productos"]
+                diccionario["telefono_cliente"] = telefono_cliente
+                diccionario["productos"] = servicio["solicitudes"][i]["productos"]
                 solicitudes.append(diccionario)
     
-    if len(solicitudes)!=0:
+    if len(solicitudes) != 0:
         for diccionario in solicitudes:
-            for llave,valor in diccionario.items():
-                if llave!="productos" and llave!="valor":
-                    print(f"{(llave.capitalize()).replace("_"," ")}: {valor}")
+            for llave, valor in diccionario.items():
+                if llave != "productos" and llave != "valor":
+                    print(f"{(llave.capitalize()).replace('_', ' ')}: {valor}")
                 else:
-                    print(f"{(llave.capitalize()).replace("_"," ")}:")
+                    print(f"{(llave.capitalize()).replace('_', ' ')}:")
                     for i in range(len(valor)):
-                        print(f"{i+1}. {valor[i]["nombre"]}")
+                        print(f"{i + 1}. {valor[i]['nombre']}")
             print("")
     else:
-        print("No existen solicitudes perndientes por el momento")
+        print("No existen solicitudes pendientes por el momento")
 
 
 #Funcion que permite al tecnico consultar las solicitudes que esta realizando
@@ -326,9 +264,15 @@ def consultar_solicitudes_por_realizar(id_tecnico, datos_servicios):
                 diccionario["cliente"]=servicio["solicitudes"][i]["cliente"]
                 diccionario["serial_equipo"]=servicio["solicitudes"][i]["serial"]
                 for usuario in datos_usuarios["usuarios"]:
-                    if usuario["nombre"]==servicio["solicitudes"][i]["cliente"] and usuario["rol"]=="Cliente":
-                        telefono_cliente=usuario["numero"]
+                    if usuario["nombre"] == servicio["solicitudes"][i]["cliente"] and usuario["rol"] == "Cliente":
+                        telefono_cliente = usuario["numero"]
                         break
+                    else:
+                        # Manejar el caso donde no se encuentra ningún usuario coincidente
+                        telefono_cliente = "Número no disponible"  # O cualquier valor predeterminado que prefieras
+
+                diccionario["telefono_cliente"] = telefono_cliente
+
                 diccionario["telefono_cliente"]=telefono_cliente
                 solicitudes.append(diccionario)
                 
@@ -504,25 +448,27 @@ def consultar_historial_solicitudes(id_cliente, datos_servicios):
 
 #Funcion que permite al tecnico elegir una solicitud para realizar (poner su nombre en el campo "tecnico" de una solicitud del json)
 def elegir_solicitud_para_realizar(id_tecnico, datos_servicios):
-    datos_usuarios=bajar_datos("usuarios.json")
-    solicitud_encontrada=False
+    datos_usuarios = bajar_datos("usuarios.json")
+    solicitud_encontrada = False
     
     for usuario in datos_usuarios["usuarios"]:
-        if usuario["id"]==id_tecnico and usuario["rol"]=="Tecnico":
-            nombre_tecnico=usuario["nombre"]
+        if usuario["id"] == id_tecnico and usuario["rol"] == "Tecnico":
+            nombre_tecnico = usuario["nombre"]
             break
     
-    id_solicitud_ingresado= input("Ingrese el id de la solicitud de servicio que desea realizar: ")
+    id_solicitud_ingresado = input("Ingrese el id de la solicitud de servicio que desea realizar: ")
     for servicio in datos_servicios["servicios"]:
         for i in range(len(servicio["solicitudes"])):
-            if servicio["solicitudes"][i]["id_solicitud"]==id_solicitud_ingresado and servicio["solicitudes"][i]["tecnico"]=="" and servicio["solicitudes"][i]["estado_pago"]==True:
-                solicitud_encontrada=True
-                servicio["solicitudes"][i]["tecnico"]=nombre_tecnico
+            if (servicio["solicitudes"][i]["id_solicitud"] == id_solicitud_ingresado 
+                and servicio["solicitudes"][i]["tecnico"] == "" 
+                and servicio["solicitudes"][i]["estado_pago"] == True):
+                solicitud_encontrada = True
+                servicio["solicitudes"][i]["tecnico"] = nombre_tecnico
                 print("La solicitud se le ha asignado correctamente")
                 print("Las solicitudes que tiene por realizar son: ")
                 consultar_solicitudes_por_realizar(id_tecnico, datos_servicios)
                 return datos_servicios
-        
-    if solicitud_encontrada==False:
-        print("No se pudo entrar un id de solicitud", id_solicitud_ingresado, "en las solicitudes de servicio pendientes")
-        return datos_servicios        
+    
+    if not solicitud_encontrada:
+        print("No se pudo encontrar un id de solicitud", id_solicitud_ingresado, "en las solicitudes de servicio pendientes")
+        return datos_servicios
