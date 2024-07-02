@@ -1,6 +1,11 @@
 from datos import *
 import json
 from modulo_usuarios import *
+from modulo_pago import *
+from preguntasyrespuesta import *
+from contactanos import *
+from modulo_servicios import *
+
 # from main import datosUsuario
 # from main import datosServicios
 RUTA_USUARIOS = "usuarios.json"
@@ -51,30 +56,79 @@ def ejecutable(datos_usuario,datosServicios):
         subir_datos(datosUsuarios,RUTA_USUARIOS)
                 
 
-def opcion_sesion(datosUsuarios,datosServicios):
+def opcion_sesion(datosUsuarios, datosServicios):
     while True:
         usuario_id = input("Ingrese su id o cedula: ")
-        usuario_clave = input("ingrese su contraseña: ")
+        usuario_clave = input("Ingrese su contraseña: ")
         usuario_encontrado = False
+        
         for usuario_info in datosUsuarios["usuarios"]:
-            if  usuario_info["id"] == usuario_id and usuario_info["contrasena"] == usuario_clave:
-                    usuario_encontrado: True
-                    if usuario_info["rol"] == "Cliente":
-                        menu_clientes()
-                    elif usuario_info["rol"] == "Tecnico":
-                        menu_tecnicos()
+            if usuario_info["id"] == usuario_id and usuario_info["contrasena"] == usuario_clave:
+                usuario_encontrado = True
+                if usuario_info["rol"] == "Cliente":
+                    menu_clientes(usuario_id, datosUsuarios,datosServicios)
+                elif usuario_info["rol"] == "Tecnico":
+                    menu_tecnicos()
+                break  # Salir del bucle si el usuario es encontrado
                 
-            elif usuario_encontrado == False:
-                print("la clave o el usuario son incorrectos")
-                continue
-        break
+        if not usuario_encontrado:
+            print("La clave o el usuario son incorrectos")
+        else:
+            break  # Salir del bucle principal si el usuario es encontrado
 
-def menu_clientes(datosUsuarios,datosServicios):
+
+def menu_clientes(id_usuario,datosUsuarios,datosServicios):
     while True:
-        print("Seleccione su opcion")
+        try:
+            opc = 0
+            menu_usuarios()
+            opc = int(input("-"))
+            if opc not in [1,2,3,4,5,6,7,8,9]:
+                raise ValueError("Opcion invalida")
+        except Exception as error:
+            error = "opcion no valida"
+            print(error)
+        else:
+            if opc == 1:
+                consultar_pagos_realizados(id_usuario,datosUsuarios)
+            elif opc == 2:
+                eliminar_usuario(id_usuario,datosUsuarios,datosUsuarios,datosServicios)
+                subir_datos(datosUsuarios,RUTA_USUARIOS)
+                ejecutable(datosUsuarios,datosServicios)
+            elif opc == 3:
+                mostrar_faq(faq)
+            elif opc == 4:
+                mostrar_informacion_contacto(empresa)
+            elif opc == 5:
+                cancelar_solicitud_mantenimiento(id_usuario,datosServicios)
+            elif opc == 6:
+                while True:
+                    menu_servicios()
+                    try:
+                        eleccion = input("-")
+                        if opc not in ["1","2"]:
+                            raise ValueError("Opcion invalida")
+                    except Exception as error:
+                        error = "opcion no valida"
+                        print(error)
+                    else:
+                        if eleccion == "1":
+                            mostrar_servicios(datosServicios)
+                        elif eleccion == "2":
+                            registro_mantenimieno(id_usuario,datosUsuarios,datosServicios)
+            elif opc == 7:
+                editar_usuario(datosUsuarios)
+            elif opc == 8:
+                agregar_equipo(id_usuario,datosUsuarios)
+            elif opc == 9:
+                break
+                        
+                    
+                
+
         
         
-        return "si"
+        
     
     
     
@@ -146,18 +200,102 @@ def mostrar_menu_usuarios():
 
 
 
-def mostrar_menu_principal():
+def menu_administrador():
     print("╔═══════════════════════════════════════╗")
-    print("║          ¡Bienvenido a MainTech!      ║")
+    print("║         ¡Bienvenido a MainTech!       ║")
     print("╠═══════════════════════════════════════╣")
-    print("║          Seleccione una opción:       ║")
+    print("║  Seleccione una opción del menú:      ║")
     print("║                                       ║")
-    print("║  1. Menú de Usuario                   ║")
-    print("║     ➤ Acceder a las opciones de usuario")
+    print("║  1. Consultar Ventas                  ║")
+    print("║     ➤ Ver el historial completo de ventas")
     print("║                                       ║")
-    print("║  2. Menú de Administrador             ║")
-    print("║     ➤ Acceder a las opciones de administrador")
+    print("║  2. Registrar Nuevo Servicio          ║")
+    print("║     ➤ Añadir un nuevo servicio        ║")
     print("║                                       ║")
-    print("╠═══════════════════════════════════════╣")
-    print("║  Por favor, ingrese el número de su opción:   ║")
+    print("║  3. Modificar Servicio                ║")
+    print("║     ➤ Modificar un servicio existente ║")
+    print("║                                       ║")
+    print("║  4. Eliminar Servicio                 ║")
+    print("║     ➤ Eliminar un servicio            ║")
+    print("║                                       ║")
+    print("║  5. Consultar Clientes                ║")
+    print("║     ➤ Ver la lista de clientes        ║")
+    print("║                                       ║")
+    print("║  6. Registrar Técnico                 ║")
+    print("║     ➤ Añadir un nuevo técnico         ║")
+    print("║                                       ║")
+    print("║  7. Modificar Información de Técnico  ║")
+    print("║     ➤ Modificar datos de un técnico   ║")
+    print("║                                       ║")
+    print("║  8. Eliminar Técnico                  ║")
+    print("║     ➤ Eliminar un técnico             ║")
+    print("║                                       ║")
+    print("║  9. Salir                             ║")
+    print("║     ➤ Cerrar el programa              ║")
     print("╚═══════════════════════════════════════╝")
+
+
+def menu_tecnico():
+    print("╔════════════════════════════════════════════════╗")
+    print("║                 Menú Técnicos                  ║")
+    print("╠════════════════════════════════════════════════╣")
+    print("║       Seleccione una opción del menú:          ║")
+    print("║                                                ║")
+    print("║  1. Actualizar Estado de la Solicitud          ║")
+    print("║     ➤ Cambiar el estado de una solicitud de    ║")
+    print("║        servicio                                ║")
+    print("║                                                ║")
+    print("║  2. Ver Lista de Solicitudes de Mantenimiento  ║")
+    print("║     ➤ Consultar solicitudes de mantenimiento   ║")
+    print("║        pendientes                              ║")
+    print("║                                                ║")
+    print("║  3. Salir                                      ║")
+    print("║     ➤ Cerrar el programa                       ║")
+    print("╚════════════════════════════════════════════════╝")
+
+
+def menu_usuarios():
+    print("╔════════════════════════════════════════════════╗")
+    print("║                 Menú Usuarios                  ║")
+    print("╠════════════════════════════════════════════════╣")
+    print("║       Seleccione una opción del menú:          ║")
+    print("║                                                ║")
+    print("║  1. Ver Mi Historial de Pago                   ║")
+    print("║     ➤ Consultar el historial de pagos         ║")
+    print("║                                                ║")
+    print("║  2. Eliminar Mi Cuenta                         ║")
+    print("║     ➤ Eliminar mi cuenta de usuario           ║")
+    print("║                                                ║")
+    print("║  3. Preguntas Frecuentes                       ║")
+    print("║     ➤ Ver respuestas a preguntas comunes      ║")
+    print("║                                                ║")
+    print("║  4. Información de la Empresa                  ║")
+    print("║     ➤ Ver información sobre la empresa        ║")
+    print("║                                                ║")
+    print("║  5. Cancelar Solicitud de Mantenimiento        ║")
+    print("║     ➤ Cancelar una solicitud de mantenimiento ║")
+    print("║                                                ║")
+    print("║  6. Consultar y Solicitar Servicios            ║")
+    print("║     ➤ Ver y solicitar servicios disponibles   ║")
+    print("║                                                ║")
+    print("║  7. Modificar Mis Datos de Cliente             ║")
+    print("║     ➤ Modificar información personal          ║")
+    print("║                                                ║")
+    print("║  8. agregar equipo                             ║")
+    print("║     ➤ Agregar Equipo a su perfil              ║")
+    print("║                                                ║")
+    print("║  9. Salir                                      ║")
+    print("║     ➤ Cerrar el programa                      ║")
+    print("║                                                ║")
+    print("╚════════════════════════════════════════════════╝")
+
+def menu_servicios():
+    print("╔════════════════════════════════════════╗")
+    print("║            Menú de Servicios           ║")
+    print("╠════════════════════════════════════════╣")
+    print("║  1. Mostrar Servicios                  ║")
+    print("║     ➤ Ver los servicios disponibles   ║")
+    print("║                                        ║")
+    print("║  2. Solicitar Servicios                ║")
+    print("║     ➤ Solicitar un servicio específico ║")
+    print("╚════════════════════════════════════════╝")
