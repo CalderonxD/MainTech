@@ -18,13 +18,14 @@ RUTA_HISTORIAL_VENTAS = "historial_ventas.json"
 
 
 #cargar datos
-# while True:
-datosUsuario = bajar_datos(RUTA_USUARIOS)
-datosServicios = bajar_datos(RUTA_SERVICIOS)
-#opc = pedir_opcion()
-#mostrar_menu_principal()
-#pedir_opcion()
-ejecutable(datosUsuario,datosServicios)
+while True:
+    datosUsuario = bajar_datos(RUTA_USUARIOS)
+    datosServicios = bajar_datos(RUTA_SERVICIOS)
+    #opc = pedir_opcion()
+    #mostrar_menu_principal()
+    #pedir_opcion()
+    ejecutable(datosUsuario,datosServicios)
+
    # if opc == 1:
     #recargar_billetera("1097097808",datosUsuario)
             
