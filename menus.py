@@ -55,9 +55,13 @@ def ejecutable(datos_usuario,datosServicios):
             elif opc == 3:
                 print("--------------------SALIENDO---------------------")
                 break
-            
-        subir_datos(datosUsuarios,RUTA_USUARIOS)
-                
+            subir_datos(datosUsuarios,RUTA_USUARIOS)
+            break
+
+
+
+
+
 
 def opcion_sesion(datosUsuarios, datosServicios):
     while True:
@@ -71,7 +75,7 @@ def opcion_sesion(datosUsuarios, datosServicios):
                 if usuario_info["rol"] == "Cliente":
                     menu_clientes(usuario_id, datosUsuarios,datosServicios)
                 elif usuario_info["rol"] == "Tecnico":
-                    menu_tecnicos(usuario_id,datosServicios)
+                    menu_tecnicos(usuario_id,datosServicios,datosUsuarios)
                 elif usuario_info["rol"] == "Admin":
                     menu_admin(datosUsuarios,datosServicios)
                 break  # Salir del bucle si el usuario es encontrado
@@ -106,6 +110,7 @@ def menu_clientes(id_usuario,datosUsuarios,datosServicios):
                 mostrar_informacion_contacto(empresa)
             elif opc == 5:
                 cancelar_solicitud_mantenimiento(id_usuario,datosServicios)
+                subir_datos(datosServicios,RUTA_SERVICIOS)
             elif opc == 6:
                 while True:
                     menu_servicios()
@@ -122,11 +127,15 @@ def menu_clientes(id_usuario,datosUsuarios,datosServicios):
                         elif eleccion == 2:
                             registro_mantenimieno(id_usuario,datosUsuarios,datosServicios)
                             subir_datos(datosServicios,RUTA_SERVICIOS)
+                            break
             elif opc == 7:
                 editar_usuario(datosUsuarios)
+                subir_datos(datosUsuarios,RUTA_USUARIOS)
             elif opc == 8:
                 agregar_equipo(id_usuario,datosUsuarios)
+                subir_datos(datosUsuarios,RUTA_USUARIOS)
             elif opc == 9:
+                ejecutable(datosUsuarios,datosServicios)
                 break
                         
                
@@ -165,6 +174,7 @@ def menu_admin(datosUsuarios,datosServicios):
                 eliminar_tecnico(datosUsuarios)
                 subir_datos(datosUsuarios,RUTA_USUARIOS)
             elif opc == 9:
+                ejecutable(datosUsuarios,datosServicios)
                 break
         
         
@@ -172,7 +182,7 @@ def menu_admin(datosUsuarios,datosServicios):
     
     
     
-def menu_tecnicos(id_usuario,datosServicios):
+def menu_tecnicos(id_usuario,datosServicios,datosUsuarios):
     while True:
         try:
             opc = 0
@@ -185,19 +195,17 @@ def menu_tecnicos(id_usuario,datosServicios):
             print(error)
         else:
             if opc == 1:
-                print("nose")
+                consultar_solicitudes_pendientes(datosServicios,datosUsuarios)
             elif opc == 2:
-                print("nose")
-            elif opc == 3:
                 consultar_solicitudes_por_realizar(id_usuario,datosServicios)
+            elif opc == 3:
+                actualizar_avance_solicitud(id_usuario,datosServicios)
+                subir_datos(datosServicios,RUTA_SERVICIOS)
             elif opc == 4:
-
-                print("nose")
-            elif opc == 5:
-            
                 elegir_solicitud_para_realizar(id_usuario,datosServicios)
                 subir_datos(datosServicios,RUTA_SERVICIOS)
-            elif opc == 9:
+            elif opc == 5:
+                ejecutable(datosUsuarios,datosServicios)
                 break
             
 
@@ -306,29 +314,26 @@ def menu_tecnico():
     print("╠════════════════════════════════════════════════╣")
     print("║       Seleccione una opción del menú:          ║")
     print("║                                                ║")
-    print("║  1. Actualizar Estado de la Solicitud          ║")
-    print("║     ➤ Cambiar el estado de una solicitud de   ║")
-    print("║        servicio                                ║")
-    print("║                                                ║")
-    print("║  2. Ver Lista de Solicitudes Pendientes        ║")
+    print("║  1. Ver Lista de Solicitudes Pendientes        ║")
     print("║     ➤ Consultar solicitudes de mantenimiento  ║")
     print("║        pendientes                              ║")
     print("║                                                ║")
-    print("║  3. Ver Lista de Solicitudes Por Realizar      ║")
+    print("║  2. Ver Lista de Solicitudes Por Realizar      ║")
     print("║     ➤ Consultar solicitudes de mantenimiento  ║")
     print("║        por realizar                            ║")
     print("║                                                ║")
-    print("║  4. Actualizar Avance de Solicitud             ║")
+    print("║  3. Actualizar Avance de Solicitud             ║")
     print("║     ➤ Modificar el avance de una solicitud de ║")
     print("║        servicio                                ║")
     print("║                                                ║")
-    print("║  5. Elegir Solicitud para Realizar             ║")
+    print("║  4. Elegir Solicitud para Realizar             ║")
     print("║     ➤ Seleccionar una solicitud para comenzar ║")
     print("║        a trabajar                              ║")
     print("║                                                ║")
-    print("║  6. Salir                                      ║")
+    print("║  5. Salir                                      ║")
     print("║     ➤ Cerrar el programa                      ║")
     print("╚════════════════════════════════════════════════╝")
+
 
 
 
