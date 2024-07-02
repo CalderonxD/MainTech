@@ -10,7 +10,7 @@ def registrar_tecnico(datos):
         usuario["id"] = input("Ingrese el documento: ")
         usuario["contrasena"] = input("ingrese la contraseña: ")
         usuario["direccion"] = input("Ingrese la direccion: ")
-        usuario["cuidad"] = input("Ingrese la ciudad: ")
+        usuario["ciudad"] = input("Ingrese la ciudad: ")
         usuario["rol"] = "Tecnico"
 
         for documento_en_uso in datos["usuarios"]:
@@ -51,29 +51,20 @@ def editar_tecnico(datos):
                 print("Usuario encontrado!")
                 nuevo_nombre = input("Nuevo nombre (Enter para dejar sin cambios): ")
                 nuevo_id = input("Nuevo documento (Enter para dejar sin cambios): ")
-                nuevo_rol = input("Nuevo tipo de cliente (Enter para dejar sin cambios): ")
-                nuevo_edad = input("Nueva edad (Enter para dejar sin cambios): ")
                 nuevo_ciudad = input("Nueva ciudad(Enter para dejar sin cambios): ")
-                nuevo_direccion = input("Nueva Ciudad (Enter para dejar sin cambios): ")
+                nuevo_direccion = input("Nueva direccion (Enter para dejar sin cambios): ")
                 nuevo_numero = input("Nuevo numero(Enter para dejar sin cambios): ")
                 if nuevo_id:
                     usuario["id"] = nuevo_id
                 if nuevo_nombre:
                     usuario["nombre"] = nuevo_nombre
-                if nuevo_rol:
-                    usuario["rol"] = nuevo_rol
                 if nuevo_ciudad:
                     usuario["ciudad"] = nuevo_ciudad
                 if nuevo_direccion:
                     usuario["direccion"] = nuevo_direccion
                 if nuevo_numero:
                     usuario["numero"] = nuevo_numero
-                if nuevo_edad:
-                    try:
-                        usuario["edad"] = int(nuevo_edad)
-                    except ValueError:
-                        print("Error: La edad debe ser un número entero.")
-                print("Usuario editado con éxito!")
+                
                 break
         else:
             print("Usuario no encontrado!")
