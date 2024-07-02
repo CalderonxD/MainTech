@@ -108,30 +108,6 @@ def registro_mantenimieno(id_usuario,datosCliente, datosServicio):
 
         break
         
-        # elif opc == 3:
-        #     for usuario in datosCliente["usuarios"]:
-        #         if usuario["id"] == cedula:
-        #             if usuario.get("equipos"):
-        #                 for equipo in usuario["equipos"]:
-        #                     comprar_instalar = {
-        #                         "id_solicitud": str(len(datosServicio["servicios"][2]["solicitudes"]) + 1),
-        #                         "cliente": usuario["nombre"],
-        #                         "tecnico": "",
-        #                         "serial": equipo["serial"],
-        #                         "estado_avance": "asignado",
-        #                         "estado_pago": False,
-        #                         "valor": 0,
-        #                         "productos": []
-        #                     }
-        #                     datosServicio["servicios"][opc - 1]["solicitudes"].append(comprar_instalar)
-        #                     print("Servicio de Comprar e Instalar Productos registrado exitosamente!")
-        #                     break
-        
-        # else:
-        #     print("Opción no implementada.")
-
-        # break
-       
 
 
 
