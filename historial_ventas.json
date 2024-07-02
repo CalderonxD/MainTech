@@ -13,6 +13,22 @@
                     "precio": 1360000
                 }
             ]
+        },
+        {
+            "fecha": "2024-07-02 03:57:58",
+            "id_solicitud": "3",
+            "cliente": "juan carlos",
+            "valor_total": 3100000,
+            "productos": [
+                {
+                    "nombre": "NVIDIA GeForce GTX 1660 Super",
+                    "precio": 900000
+                },
+                {
+                    "nombre": "NVIDIA GeForce RTX 3070",
+                    "precio": 2200000
+                }
+            ]
         }
     ],
     "limpieza": [
@@ -39,6 +55,18 @@
             "cliente": "Bu\u00c3\u00b1uelo",
             "valor_total": 30000,
             "fecha": "2024-06-30 20:41:50"
+        },
+        {
+            "id_solicitud": "4",
+            "cliente": "juan carlos",
+            "valor_total": 30000,
+            "fecha": "2024-07-02 03:53:06"
+        },
+        {
+            "id_solicitud": "4",
+            "cliente": "juan carlos",
+            "valor_total": 30000,
+            "fecha": "2024-07-02 03:57:01"
         }
     ],
     "reestablecer": [
@@ -59,6 +87,12 @@
             "cliente": "Bu\u00c3\u00b1uelo",
             "valor_total": 20000,
             "fecha": "2024-06-30 20:42:21"
+        },
+        {
+            "id_solicitud": "5",
+            "cliente": "juan carlos",
+            "valor_total": 20000,
+            "fecha": "2024-07-02 03:57:44"
         }
     ]
 }

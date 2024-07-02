@@ -27,6 +27,14 @@
                     "serial": "1111",
                     "estado_avance": "asignado",
                     "estado_pago": false
+                },
+                {
+                    "id_solicitud": "4",
+                    "cliente": "juan carlos",
+                    "tecnico": "Santiago",
+                    "serial": "xd",
+                    "estado_avance": "asignado",
+                    "estado_pago": false
                 }
             ]
         },
@@ -65,6 +73,14 @@
                     "serial": "1111",
                     "estado_avance": "asignado",
                     "estado_pago": false
+                },
+                {
+                    "id_solicitud": "5",
+                    "cliente": "juan carlos",
+                    "tecnico": "",
+                    "serial": "xd",
+                    "estado_avance": "asignado",
+                    "estado_pago": false
                 }
             ]
         },
@@ -99,6 +115,25 @@
                         {
                             "nombre": "NVIDIA GeForce GTX 1660 Super",
                             "precio": 900000
+                        }
+                    ]
+                },
+                {
+                    "id_solicitud": "3",
+                    "cliente": "juan carlos",
+                    "tecnico": "",
+                    "serial": "xd",
+                    "estado_avance": "asignado",
+                    "estado_pago": false,
+                    "valor": 3100000,
+                    "productos": [
+                        {
+                            "nombre": "NVIDIA GeForce GTX 1660 Super",
+                            "precio": 900000
+                        },
+                        {
+                            "nombre": "NVIDIA GeForce RTX 3070",
+                            "precio": 2200000
                         }
                     ]
                 }

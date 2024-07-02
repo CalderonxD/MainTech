@@ -5,6 +5,8 @@ from modulo_pago import *
 from preguntasyrespuesta import *
 from contactanos import *
 from modulo_servicios import *
+from modulo_ventas import *
+from modulo_tecnicos import *
 
 # from main import datosUsuario
 # from main import datosServicios
@@ -40,6 +42,7 @@ def ejecutable(datos_usuario,datosServicios):
         except Exception as error:
             error = "opcion no valida"
             print(error)
+            continue
         else:
             if opc == 1:
                 datosUsuarios = bajar_datos(RUTA_USUARIOS)
@@ -52,7 +55,7 @@ def ejecutable(datos_usuario,datosServicios):
             elif opc == 3:
                 print("--------------------SALIENDO---------------------")
                 break
-            break
+            
         subir_datos(datosUsuarios,RUTA_USUARIOS)
                 
 
@@ -68,7 +71,9 @@ def opcion_sesion(datosUsuarios, datosServicios):
                 if usuario_info["rol"] == "Cliente":
                     menu_clientes(usuario_id, datosUsuarios,datosServicios)
                 elif usuario_info["rol"] == "Tecnico":
-                    menu_tecnicos()
+                    menu_tecnicos(usuario_id,datosServicios)
+                elif usuario_info["rol"] == "Admin":
+                    menu_admin(datosUsuarios,datosServicios)
                 break  # Salir del bucle si el usuario es encontrado
                 
         if not usuario_encontrado:
@@ -105,17 +110,18 @@ def menu_clientes(id_usuario,datosUsuarios,datosServicios):
                 while True:
                     menu_servicios()
                     try:
-                        eleccion = input("-")
-                        if opc not in ["1","2"]:
+                        eleccion = int(input("-"))
+                        if eleccion not in [1,2]:
                             raise ValueError("Opcion invalida")
                     except Exception as error:
                         error = "opcion no valida"
                         print(error)
                     else:
-                        if eleccion == "1":
+                        if eleccion == 1:
                             mostrar_servicios(datosServicios)
-                        elif eleccion == "2":
+                        elif eleccion == 2:
                             registro_mantenimieno(id_usuario,datosUsuarios,datosServicios)
+                            subir_datos(datosServicios,RUTA_SERVICIOS)
             elif opc == 7:
                 editar_usuario(datosUsuarios)
             elif opc == 8:
@@ -123,18 +129,77 @@ def menu_clientes(id_usuario,datosUsuarios,datosServicios):
             elif opc == 9:
                 break
                         
-                    
-                
+               
+def menu_admin(datosUsuarios,datosServicios):
+    while True:
+        try:
+            opc = 0
+            menu_administrador()
+            opc = int(input("-"))
+            if opc not in [1,2,3,4,5,6,7,8,9]:
+                raise ValueError("Opcion invalida")
+        except Exception as error:
+            error = "opcion no valida"
+            print(error)
+        else:
+            if opc == 1:
+                mostrar_ventas_ganancias(RUTA_HISTORIAL_VENTAS)
+            elif opc == 2:
+                agregar_servicio(datosServicios)
+                subir_datos(datosServicios,RUTA_SERVICIOS)
+            elif opc == 3:
+                editar_servicio(datosServicios)
+                subir_datos(datosServicios,RUTA_SERVICIOS)
+            elif opc == 4:
+                eliminar_servicio(datosServicios)
+                subir_datos(datosServicios,RUTA_SERVICIOS)
+            elif opc == 5:
+                mostrar_usuario(datosUsuarios)
+            elif opc == 6:
+                registrar_tecnico(datosUsuarios)
+                subir_datos(datosUsuarios,RUTA_USUARIOS)
+            elif opc == 7:
+                editar_tecnico(datosUsuarios)
+                subir_datos(datosUsuarios,RUTA_USUARIOS)
+            elif opc == 8:
+                eliminar_tecnico(datosUsuarios)
+                subir_datos(datosUsuarios,RUTA_USUARIOS)
+            elif opc == 9:
+                break
+        
+        
+        
+    
+    
+    
+def menu_tecnicos(id_usuario,datosServicios):
+    while True:
+        try:
+            opc = 0
+            menu_tecnico()
+            opc = int(input("-"))
+            if opc not in [1,2,3,4,5,6,7,8,9]:
+                raise ValueError("Opcion invalida")
+        except Exception as error:
+            error = "opcion no valida"
+            print(error)
+        else:
+            if opc == 1:
+                print("nose")
+            elif opc == 2:
+                print("nose")
+            elif opc == 3:
+                consultar_solicitudes_por_realizar(id_usuario,datosServicios)
+            elif opc == 4:
 
-        
-        
-        
-    
-    
-    
-def menu_tecnicos(datosUsuarios,datosServicios):
-    saludo = print("hola Tecnico")
-    return saludo
+                print("nose")
+            elif opc == 5:
+            
+                elegir_solicitud_para_realizar(id_usuario,datosServicios)
+                subir_datos(datosServicios,RUTA_SERVICIOS)
+            elif opc == 9:
+                break
+            
 
 def pedir_opcion():
     opc = 0
@@ -202,7 +267,7 @@ def mostrar_menu_usuarios():
 
 def menu_administrador():
     print("╔═══════════════════════════════════════╗")
-    print("║         ¡Bienvenido a MainTech!       ║")
+    print("║       ¡Bienvenido Administrador!      ║")
     print("╠═══════════════════════════════════════╣")
     print("║  Seleccione una opción del menú:      ║")
     print("║                                       ║")
@@ -242,16 +307,30 @@ def menu_tecnico():
     print("║       Seleccione una opción del menú:          ║")
     print("║                                                ║")
     print("║  1. Actualizar Estado de la Solicitud          ║")
-    print("║     ➤ Cambiar el estado de una solicitud de    ║")
+    print("║     ➤ Cambiar el estado de una solicitud de   ║")
     print("║        servicio                                ║")
     print("║                                                ║")
-    print("║  2. Ver Lista de Solicitudes de Mantenimiento  ║")
-    print("║     ➤ Consultar solicitudes de mantenimiento   ║")
+    print("║  2. Ver Lista de Solicitudes Pendientes        ║")
+    print("║     ➤ Consultar solicitudes de mantenimiento  ║")
     print("║        pendientes                              ║")
     print("║                                                ║")
-    print("║  3. Salir                                      ║")
-    print("║     ➤ Cerrar el programa                       ║")
+    print("║  3. Ver Lista de Solicitudes Por Realizar      ║")
+    print("║     ➤ Consultar solicitudes de mantenimiento  ║")
+    print("║        por realizar                            ║")
+    print("║                                                ║")
+    print("║  4. Actualizar Avance de Solicitud             ║")
+    print("║     ➤ Modificar el avance de una solicitud de ║")
+    print("║        servicio                                ║")
+    print("║                                                ║")
+    print("║  5. Elegir Solicitud para Realizar             ║")
+    print("║     ➤ Seleccionar una solicitud para comenzar ║")
+    print("║        a trabajar                              ║")
+    print("║                                                ║")
+    print("║  6. Salir                                      ║")
+    print("║     ➤ Cerrar el programa                      ║")
     print("╚════════════════════════════════════════════════╝")
+
+
 
 
 def menu_usuarios():

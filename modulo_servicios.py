@@ -8,105 +8,103 @@ def registro_mantenimieno(id_usuario,datosCliente, datosServicio):
             print("1. Limpieza")
             print("2. Reestablecer Equipo")
             print("3. Comprar e instalar productos")
+            print("0. para volver")
             opc = int(input())
         except ValueError:
             print("Ingrese un número válido.")
             continue
-        except KeyboardInterrupt:
-            print("Operación interrumpida por el usuario.")
-            break
-        
-        
-        
-        if opc == 1:
-            for usuario in datosCliente["usuarios"]:
-                if usuario["id"] == id_usuario:
-                    if usuario.get("equipos"):
-                        for equipo in usuario["equipos"]:
-                            limpieza = {
-                                "id_solicitud": str(len(datosServicio["servicios"][0]["solicitudes"]) + 1),
-                                "cliente": usuario["nombre"],
-                                "tecnico": "",
-                                "serial": equipo["serial"],
-                                "estado_avance": "asignado",
-                                "estado_pago": False
-                            }
-                            datosServicio["servicios"][opc - 1]["solicitudes"].append(limpieza)
-                            print("Servicio de Limpieza registrado exitosamente!")
-                            registrar_historial_limpieza(limpieza["id_solicitud"], limpieza["cliente"], 0)
-                            break
-        
-        elif opc == 2:
-            for usuario in datosCliente["usuarios"]:
-                if usuario["id"] == id_usuario:
-                    if usuario.get("equipos"):
-                        for equipo in usuario["equipos"]:
-                            reestablecer = {
-                                "id_solicitud": str(len(datosServicio["servicios"][1]["solicitudes"]) + 1),
-                                "cliente": usuario["nombre"],
-                                "tecnico": "",
-                                "serial": equipo["serial"],
-                                "estado_avance": "asignado",
-                                "estado_pago": False
-                            }
-                            datosServicio["servicios"][opc - 1]["solicitudes"].append(reestablecer)
-                            print("Servicio de Reestablecer Equipo registrado exitosamente!")
-                            registrar_historial_restablecer(reestablecer["id_solicitud"], reestablecer["cliente"], 0)
-                            break
-                    
-
-        elif opc == 3:
-            for usuario in datosCliente["usuarios"]:
-                if usuario["id"] == id_usuario:
-                    if usuario.get("equipos"):
-                        for equipo in usuario["equipos"]:
-                            # Mostrar y seleccionar productos disponibles
-                            print("Productos disponibles para comprar e instalar:")
-                            productos_disponibles = datosServicio["productos"]["graficas"] + datosServicio["productos"]["procesadores"] + datosServicio["productos"]["ram"]
-                            
-                            productos_seleccionados = []
-                            total_valor = 0
-                            
-                            while True:
-                                print("Seleccione un producto para agregar (0 para terminar): ")
-                                for idx, producto in enumerate(productos_disponibles, start=1):
-                                    print(f"{idx}. {producto['nombre']} - ${producto['precio']}")
-                                
-                                try:
-                                    opcion_producto = int(input())
-                                    if opcion_producto == 0:
-                                        break
-                                    elif opcion_producto < 1 or opcion_producto > len(productos_disponibles):
-                                        print("Opción inválida.")
-                                        continue
-                                    
-                                    producto_seleccionado = productos_disponibles[opcion_producto - 1]
-                                    productos_seleccionados.append(producto_seleccionado)
-                                    total_valor += producto_seleccionado["precio"]
-                                    print(f"{producto_seleccionado['nombre']} agregado.")
-                                except ValueError:
-                                    print("Ingrese un número válido.")
-                            
-                            comprar_instalar = {
-                                "id_solicitud": str(len(datosServicio["servicios"][2]["solicitudes"]) + 1),
-                                "cliente": usuario["nombre"],
-                                "tecnico": "",
-                                "serial": equipo["serial"],
-                                "estado_avance": "asignado",
-                                "estado_pago": False,
-                                "valor": total_valor,
-                                "productos": productos_seleccionados
-                            }
-                            datosServicio["servicios"][opc - 1]["solicitudes"].append(comprar_instalar)
-                            print("Servicio de Comprar e Instalar Productos registrado exitosamente!")
-                             # Registrar compra en historial de ventas
-                            registrar_compra(comprar_instalar["id_solicitud"], usuario["nombre"], total_valor, productos_seleccionados)
-                            break
-        
         else:
-            print("Opción no implementada.")
-
-        break
+            if opc == 1:
+                for usuario in datosCliente["usuarios"]:
+                    if usuario["id"] == id_usuario:
+                        if usuario.get("equipos"):
+                            for equipo in usuario["equipos"]:
+                                limpieza = {
+                                    "id_solicitud": str(len(datosServicio["servicios"][0]["solicitudes"]) + 1),
+                                    "cliente": usuario["nombre"],
+                                    "tecnico": "",
+                                    "serial": equipo["serial"],
+                                    "estado_avance": "asignado",
+                                    "estado_pago": False
+                                }
+                                datosServicio["servicios"][opc - 1]["solicitudes"].append(limpieza)
+                                print("Servicio de Limpieza registrado exitosamente!")
+                                registrar_historial_limpieza(limpieza["id_solicitud"], limpieza["cliente"], 0)
+                                break
+                            
+            elif opc == 2:
+                for usuario in datosCliente["usuarios"]:
+                    if usuario["id"] == id_usuario:
+                        if usuario.get("equipos"):
+                            for equipo in usuario["equipos"]:
+                                reestablecer = {
+                                    "id_solicitud": str(len(datosServicio["servicios"][1]["solicitudes"]) + 1),
+                                    "cliente": usuario["nombre"],
+                                    "tecnico": "",
+                                    "serial": equipo["serial"],
+                                    "estado_avance": "asignado",
+                                    "estado_pago": False
+                                }
+                                datosServicio["servicios"][opc - 1]["solicitudes"].append(reestablecer)
+                                print("Servicio de Reestablecer Equipo registrado exitosamente!")
+                                registrar_historial_restablecer(reestablecer["id_solicitud"], reestablecer["cliente"], 0)
+                                break
+                            
+                            
+            elif opc == 3:
+                for usuario in datosCliente["usuarios"]:
+                    if usuario["id"] == id_usuario:
+                        if usuario.get("equipos"):
+                            for equipo in usuario["equipos"]:
+                                # Mostrar y seleccionar productos disponibles
+                                print("Productos disponibles para comprar e instalar:")
+                                productos_disponibles = datosServicio["productos"]["graficas"] + datosServicio["productos"]["procesadores"] + datosServicio["productos"]["ram"]
+                                
+                                productos_seleccionados = []
+                                total_valor = 0
+                                
+                                while True:
+                                    print("Seleccione un producto para agregar (0 para terminar): ")
+                                    for idx, producto in enumerate(productos_disponibles, start=1):
+                                        print(f"{idx}. {producto['nombre']} - ${producto['precio']}")
+                                    
+                                    try:
+                                        opcion_producto = int(input())
+                                        if opcion_producto == 0:
+                                            break
+                                        elif opcion_producto < 1 or opcion_producto > len(productos_disponibles):
+                                            print("Opción inválida.")
+                                            continue
+                                        
+                                        producto_seleccionado = productos_disponibles[opcion_producto - 1]
+                                        productos_seleccionados.append(producto_seleccionado)
+                                        total_valor += producto_seleccionado["precio"]
+                                        print(f"{producto_seleccionado['nombre']} agregado.")
+                                    except ValueError:
+                                        print("Ingrese un número válido.")
+                                
+                                comprar_instalar = {
+                                    "id_solicitud": str(len(datosServicio["servicios"][2]["solicitudes"]) + 1),
+                                    "cliente": usuario["nombre"],
+                                    "tecnico": "",
+                                    "serial": equipo["serial"],
+                                    "estado_avance": "asignado",
+                                    "estado_pago": False,
+                                    "valor": total_valor,
+                                    "productos": productos_seleccionados
+                                }
+                                datosServicio["servicios"][opc - 1]["solicitudes"].append(comprar_instalar)
+                                print("Servicio de Comprar e Instalar Productos registrado exitosamente!")
+                                 # Registrar compra en historial de ventas
+                                registrar_compra(comprar_instalar["id_solicitud"], usuario["nombre"], total_valor, productos_seleccionados)
+                                break
+            elif opc == 0:
+                break
+            
+            else:
+                print("Opción no implementada.")
+    
+            break
         
 
 
@@ -188,7 +186,7 @@ def editar_servicio(datos):
 def mostrar_servicios(datos):
     for servicio in datos.get('servicios', []):
         print(f"Servicio: {servicio['servicio']}, Precio: {servicio['precio']}")
-
+    return datos
     
 
 
@@ -522,7 +520,7 @@ def elegir_solicitud_para_realizar(id_tecnico, datos_servicios):
                 servicio["solicitudes"][i]["tecnico"]=nombre_tecnico
                 print("La solicitud se le ha asignado correctamente")
                 print("Las solicitudes que tiene por realizar son: ")
-                consultar_solicitudes_por_realizar(id_tecnico, datosServicios)
+                consultar_solicitudes_por_realizar(id_tecnico, datos_servicios)
                 return datos_servicios
         
     if solicitud_encontrada==False:

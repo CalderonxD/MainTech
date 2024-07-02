@@ -122,8 +122,47 @@ def editar_usuario(datos):
     
     return datos
 
+# def mostrar_usuario(datos):
+#     for usuario in datos["usuarios"]:
+#         # if usuario["rol"].lower() == "cliente":
+#         print(usuario)
+
+# def mostrar_usuario(datos):
+#     for usuario in datos["usuarios"]:
+#         # Imprime cada usuario como un JSON formateado
+#         print(json.dumps(usuario, indent=4))
+
 def mostrar_usuario(datos):
     for usuario in datos["usuarios"]:
-        if usuario["rol"].lower() == "tecnico":
-            print(usuario)
-
+        print(f"Nombre: {usuario['nombre']}")
+        print(f"Número: {usuario['numero']}")
+        print(f"ID: {usuario['id']}")
+        print(f"Contraseña: {usuario['contrasena']}")
+        print(f"Dirección: {usuario['direccion']}")
+        print(f"Ciudad: {usuario['ciudad']}")
+        if 'rol' in usuario:
+            print(f"Rol: {usuario['rol']}")
+        if 'billetera' in usuario:
+            print(f"Billetera: {usuario['billetera']}")
+        if 'pagos' in usuario:
+            print("Pagos:")
+            for pago in usuario['pagos']:
+                print(f"  Monto: {pago['monto']}, Fecha: {pago['fecha']}")
+        if 'equipos' in usuario:
+            print("Equipos:")
+            for equipo in usuario['equipos']:
+                print(f"  Marca: {equipo['marca']}")
+                print(f"  Serial: {equipo['serial']}")
+                print(f"  Color: {equipo['color']}")
+                print(f"  Pago: {equipo['pago']}")
+                print(f"  Estado: {equipo['estado']}")
+                print(f"  Servicio: {equipo['servicio']}")
+                if 'componentes' in equipo:
+                    print("  Componentes:")
+                    for componente in equipo['componentes']:
+                        print(f"    Procesador: {componente['procesador']}")
+                        print(f"    RAM: {componente['ram']}")
+                        print(f"    Gráfica: {componente['grafica']}")
+                        print(f"    Board: {componente['board']}")
+                        print(f"    Fuente: {componente['fuente']}")
+        print()  # línea en blanco entre cada usuario

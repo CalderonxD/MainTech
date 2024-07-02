@@ -11,7 +11,7 @@
             "servicio": ""
         },
         {
-            "nombre": "Bu\u00c3\u0192\u00c2\u00b1uelo",
+            "nombre": "Bu\u00c3\u0192\u00c6\u2019\u00c3\u201a\u00c2\u00b1uelo",
             "numero": "3162249944",
             "id": "1097097808",
             "contrasena": "xd",
@@ -52,6 +52,36 @@
             "contrasena": "xd",
             "direccion": "cra xd",
             "ciudad": "bucaramanga"
+        },
+        {
+            "nombre": "juan carlos",
+            "numero": "1233123",
+            "id": "333",
+            "contrasena": "xd",
+            "direccion": "su mama",
+            "ciudad": "sapo",
+            "rol": "Cliente",
+            "billetera": 0,
+            "pagos": [],
+            "equipos": [
+                {
+                    "marca": "xd",
+                    "serial": "xd",
+                    "color": "xd",
+                    "pago": false,
+                    "estado": "",
+                    "servicio": "",
+                    "componentes": [
+                        {
+                            "procesador": "xd",
+                            "ram": "xd",
+                            "grafica": "xd",
+                            "board": "xd",
+                            "fuente": "xd"
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
